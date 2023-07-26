@@ -1,0 +1,67 @@
+# Project: Projet1
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o
+LINKOBJ  = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc C:/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/glew-1.13.0/lib/Release/Win32/glew32.lib -lopengl32 C:/freeglut/lib/freeglut.lib C:/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/glew-1.13.0/lib/Release/Win32/glew32.lib -m32
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Projet1.exe
+CXXFLAGS = $(CXXINCS) -m32
+CFLAGS   = $(INCS) -m32
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+common/objloader.o: common/objloader.cpp
+	$(CPP) -c common/objloader.cpp -o common/objloader.o $(CXXFLAGS)
+
+common/quaternion_utils.o: common/quaternion_utils.cpp
+	$(CPP) -c common/quaternion_utils.cpp -o common/quaternion_utils.o $(CXXFLAGS)
+
+common/shader.o: common/shader.cpp
+	$(CPP) -c common/shader.cpp -o common/shader.o $(CXXFLAGS)
+
+common/tangentspace.o: common/tangentspace.cpp
+	$(CPP) -c common/tangentspace.cpp -o common/tangentspace.o $(CXXFLAGS)
+
+common/text2D.o: common/text2D.cpp
+	$(CPP) -c common/text2D.cpp -o common/text2D.o $(CXXFLAGS)
+
+common/texture.o: common/texture.cpp
+	$(CPP) -c common/texture.cpp -o common/texture.o $(CXXFLAGS)
+
+common/vboindexer.o: common/vboindexer.cpp
+	$(CPP) -c common/vboindexer.cpp -o common/vboindexer.o $(CXXFLAGS)
+
+stadium.o: stadium.cpp
+	$(CPP) -c stadium.cpp -o stadium.o $(CXXFLAGS)
+
+joueur.o: joueur.cpp
+	$(CPP) -c joueur.cpp -o joueur.o $(CXXFLAGS)
+
+balle.o: balle.cpp
+	$(CPP) -c balle.cpp -o balle.o $(CXXFLAGS)
+
+cameragestion.o: cameragestion.cpp
+	$(CPP) -c cameragestion.cpp -o cameragestion.o $(CXXFLAGS)
+
+game.o: game.cpp
+	$(CPP) -c game.cpp -o game.o $(CXXFLAGS)
+
+membres.o: membres.cpp
+	$(CPP) -c membres.cpp -o membres.o $(CXXFLAGS)
