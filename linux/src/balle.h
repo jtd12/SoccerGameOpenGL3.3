@@ -1,36 +1,70 @@
 #ifndef DEF_BALLE_H
 #define DEF_BALLE_H
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-using namespace std;
-#include <stdlib.h>
-#include <string.h>
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-#include "common/shader.hpp"
-#include "common/texture.hpp"
-#include "common/objloader.hpp"
-#include<GL/freeglut.h>
-#include "camera.hpp"
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include<vector>
+#include"vector.h"
+#include"collision.h"
+#include"collisionsphere.h"
+#include"collisionplane.h"
+#include<cmath>
+#include<iostream>
+#define pi 3.14159265359 // on definit un nombre pi
 
 class balle
 {
+	unsigned int mesh;
+	std::string name;
+	vector3d direction,rotation;
+	collisionsphere cs;
+	vector3d force;
+    vector3d fixeBall;
+	vector3d angle;
+   	float maxSpeed;
+		float acc;
+		float dec;
+		float speed,speed_ball_joueur,speed_ball_joueurAI,speed2_ball_joueurAI,speed_ball_goal;
+		bool centrer,centreravant,centrercotedroit,centrercotegauche,centrerarriere,centrercotearrieredroit,centrercotearrieregauche;
+	
+	
 	public:
-	balle(glm::vec3 position);
-	balle(float x, float y, float z,float rot);
-	~balle();
-		void loadContent();
-	void update(glm::vec3 translation);
-	void show(glm::mat4 ProjectionMatrix,glm::mat4 ViewMatrix,glm::mat4 ModelMatrix);
-	void setLocation(glm::vec3 position);
-	glm::vec3 getLocation();
+		balle(const char * n,unsigned int map ,collisionsphere ccs,float normals);
+		~balle();
+		void update(std::vector<collisionplane>& collplane);
+		void show();
+		collisionsphere * getCollisionSphere();
+		void setLocation(vector3d newLoc);
+	
+		
+		void setFixe(vector3d f);
+	
+		vector3d getFixe();
+		void setRotation(float y);
+		vector3d getRot();
+
+	float getSpeedBallJoueur();
+	float getSpeedBallJoueurAI();
+	float getSpeedBallJoueurAI2();
+		float getSpeedBallgoal();
+	void setSpeedBallJoueur(float s);
+		void setSpeedBallgoal(float s);
+	void setSpeedBallJoueurAI(float s);
+	void setSpeedBallJoueurAI2(float s);
+	void setSpeedBallAccJoueur(float s);
+		void setSpeedBallAccgoal(float s);
+	void setSpeedBallAccJoueurAI(float s);
+	void setSpeedBallAccJoueurAI2(float s);
+	void setSpeedBallDecJoueur(float s);
+		void setSpeedBallDecgoal(float s);
+	void setSpeedBallDecJoueurAI(float s);
+	void setSpeedBallDecJoueurAI2(float s);
+	vector3d getangle();
+		void setangle(vector3d a);
+	void setLocationincremente(vector3d newLoc);
+		float maxSpeed_();
+		float acce();
+		float dece();
+		vector3d getLocation();
 		bool centrer_();
 		bool centrerAvant_();
 		bool centrerArriere_();
@@ -45,48 +79,9 @@ class balle
 		void  centrerCoteArriereDroite_(bool c);
 		void  centrerCoteGauche_(bool c);
 		void  centrerCoteDroit_(bool c);
-		glm::vec3 getangle();
-		void setangle(glm::vec3 a);
-	void setLocationIncremente(glm::vec3 newLoc);
-		float maxSpeed_();
-		float acce();
-		float dece();
-float getSpeedBallJoueur();
-float getSpeedBallJoueurAI();
-float getSpeedBallGoal();
-void setSpeedBallDecJoueur(float s);
-void setSpeedBallAccJoueur(float s);
-void setSpeedBallJoueur(float s);
-void setSpeedBallDecJoueurAI(float s);
-void setSpeedBallDecGoal(float s);
-void setSpeedBallAccJoueurAI(float s);
-void setSpeedBallAccGoal(float s);
-void setSpeedBallJoueurAI(float s);
-void setSpeedBallGoal(float s);
-   float getRot();
-    void setRot(float r);
-void setdece(float dec);
-	private:
-			bool centrer,centreravant,centrercotedroit,centrercotegauche,centrerarriere,centrercotearrieredroit,centrercotearrieregauche;
-		GLuint vertexbuffer;
-GLuint programID;
-	GLuint MatrixID;
-		GLuint Texture;
-			GLuint Texture2;
-		GLuint TextureID;
-		GLuint TextureID2;
-			// Read our .obj file
- std::vector<glm::vec3> vertices;
-	std::vector<glm::vec2> uvs;
-	std::vector<glm::vec3> normals; // Won't be used at the moment.
-				GLuint uvbuffer;
-						glm::vec3 position_;
-						glm::vec3 angle;
-   	float maxSpeed;
-		float acc;
-		float dec;
-		float rot_;
-float speed,speed_ball_joueur,speed_ball_joueurAI,speed2_ball_joueurAI,speed_ball_goal;
-camera cam;
+
 };
 #endif
+
+
+

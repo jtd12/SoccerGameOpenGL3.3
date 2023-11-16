@@ -1,330 +1,432 @@
 #include"joueur.h"
 
-joueur::joueur(glm::vec3 position)
-{
-curFrame=1;
-position_=position;
-}
-joueur::joueur(float x, float y,float z,float rot)
-{
-position_= glm::vec3(x,y,z);
-rot_=rot;
-
-}
-void joueur::setLocation(glm::vec3 position)
-{
-	position_=position;
-}
-bool joueur::movement(glm::vec3 playerLoc)
+	player::player(std::vector<unsigned int>& anim,float sp,collisionsphere css)
+	{
+		frames=anim;
+		speed=sp;
+		cs=css;
+		control=false;
+		control2=false;
+		control3=false;
+		control4=false;
+		hastheball=false;
+		rotation.y=0;
+		space=false;
+		attaquer_=false;
+		speed2=rand.random(0.05,0.1);
+		iswalk=false;
+		isattack=isdead=false;
+		isshoot=false;
+		walk=20;
+		attack=2;
+		die=3;
+		shoot=11;
+		defendre_=false;
+		next=false;
+		tirer=false;
+		setkeyshoot_=false;
+		tir=false;
+		
+	}
+		player::~player()
 		{
-		
-		
-				
-			glm::vec3 newpos(position_);
-			     
-			      direction=glm::normalize(playerLoc-position_);
-		
-			newpos.y-=0.5f;
-			if(newpos.y<=3.5f)
-			{ newpos.y=3.5f;
-			}
-			newpos+=0.03f*direction;
-			setLocation(newpos);
-			  
-			 	rot_=std::acos(direction.x);
-			 	if(direction.z>0)
-			 	  {
-			 	  	rot_=-rot_;
-				   }
-				   
-				 
-	 			
-					 
-				
-				
-							
-			
-		
-
-	 			
-					 
-				
-				
-							
 			
 		}
-		
-		bool joueur::movementGOAL(glm::vec3 playerLoc)
+		void player::setkeyshoot(bool s)
 		{
-		
-		
-				
-			glm::vec3 newpos(position_);
-			     
-			      direction=glm::normalize(playerLoc-position_);
-		
-			newpos.y-=0.5f;
-			if(newpos.y<=3.5f)
-			{ newpos.y=3.5f;
-			}
-		
-			setLocation(newpos);
-			  
-			 	rot_=std::acos(direction.x);
-			 	if(direction.z>0)
-			 	  {
-			 	  	rot_=-rot_;
-				   }
-				   
-				 
-	 			
-					 
-				
-				
-							
-			
-		
-
-	 			
-					 
-				
-				
-							
-			
+			setkeyshoot_=s;
 		}
-			
-		bool joueur::movementGOALAI(glm::vec3 playerLoc)
+		void player::avancer()
 		{
-		
-		
-				
-			glm::vec3 newpos(position_);
-			     
-			      direction=glm::normalize(playerLoc-position_);
-		
-			newpos.y-=0.5f;
-			if(newpos.y<=3.5f)
-			{ newpos.y=3.5f;
-			}
-		
-			setLocation(newpos);
-			  
-			 	rot_=std::acos(-direction.x);
-			 	if(direction.z<0)
-			 	  {
-			 	  	rot_=-rot_;
-				   }
-				   
-				 
-	 			
-					 
-				
-				
-							
-			
-		
-
-	 			
-					 
-				
-				
-							
-			
-		}
-		
-		bool joueur::movementAI(glm::vec3 playerLoc)
-		{
-		
-		
-				
-			glm::vec3 newpos(position_);
-			     
-			      direction=glm::normalize(playerLoc-position_);
-		
-			newpos.y-=0.5f;
-			if(newpos.y<=3.5f)
-			{ newpos.y=3.5f;
-			}
-			newpos+=0.05f*direction;
-			setLocation(newpos);
-			  
-			 	rot_=std::acos(-direction.x);
-			 	if(direction.z<0)
-			 	  {
-			 	  	rot_=-rot_;
-				   }
-				   
-				 
-	 			
-					 
-				
-				
-							
-			
-		
-
-	 			
-					 
-				
-				
-							
-			
-		}
-
-
-
-glm::vec3 joueur::getLocation()
-{
-	return position_;
-}
-void joueur::setNext(bool s)
-{
-	next=s;
-
-}
-bool joueur::getNext()
-{
-	return next;
-}
-bool joueur::getTirer()
- {
- 	return tirer;
- }
- void joueur::setTirer(bool t)
- {
- 	tirer=t;
- }
-joueur::~joueur()
-{
-
-}
-void joueur::loadContent(const char *filename,const char * filenameTexture)
-{
-programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
-
-	// Get a handle for our "MVP" uniform
-MatrixID = glGetUniformLocation(programID, "MVP");
-
-	// Load the texture
- Texture =  loadBMP_custom(filenameTexture);
-	// Get a handle for our "myTextureSampler" uniform
- TextureID  = glGetUniformLocation(programID, "myTextureSampler");
-
-
-	bool res = loadOBJ(filename, vertices, uvs, normals);
-
-	// Load it into a VBO
-
-
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-
-
-	glGenBuffers(1, &uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+			if(control)
+			{
 	
-// Generate 1 buffer, put the resulting identifier in vertexbuffer
-
-
-}
-void joueur::update(glm::vec3 translation)
-{
-
-	position_+=translation*1.3f;
-}
-float joueur::getRot()
-{
-	return rot_;
-}
-void joueur::setRot(float r)
-{
-	rot_=r;
-}
-void joueur::show(glm::vec3 addp)
-{
-
-			glUseProgram(programID);
-
-		// Compute the MVP matrix from keyboard and mouse input
-		cam.computeMatricesFromInputs(addp); 
-		glm::mat4 ProjectionMatrix = cam.getProjectionMatrix();
-		glm::mat4 ViewMatrix = cam.getViewMatrix();
-		glm::mat4 ModelMatrix = glm::mat4(10.0);
-		glm::mat4 myTranslationMatrix = glm::translate(glm::mat4(), glm::vec3 (position_));
-		glm::mat4 myScalingMatrix = glm::scale(glm::mat4(), glm::vec3 (0.5f,0.5f,0.5f));
-		glm::vec3 myRotationAxis( 0.0, 0.5,0.0);
-		glm::mat4 myRotationMatrix=glm::rotate(rot_,myRotationAxis);
-		glm::mat4 MVP = ProjectionMatrix * ViewMatrix* ModelMatrix*myTranslationMatrix*myRotationMatrix*myScalingMatrix;
-
-
-
-		// Send our transformation to the currently bound shader, 
-		// in the "MVP" uniform
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
-		// Bind our texture in Texture Unit 0
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture);
-		// Set our "myTextureSampler" sampler to user Texture Unit 0
-		glUniform1i(TextureID, 0);
-
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-
-		// 2nd attribute buffer : UVs
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-		glVertexAttribPointer(
-			1,                                // attribute
-			2,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
-
-		// Draw the triangle !
+				rotation.y=0;
+				cs.center.x+=speed;
+			
+			
+			
+	 			
+		}
 	
-		glDrawArrays(GL_TRIANGLES,0, vertices.size() );
-	glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
+			
+		}
+			void player::reculer()
+		{
+			if(control2)
+			{
+				
+				rotation.y=180;
+				cs.center.x-=speed;
+	
+				
+			
+	 			
+		}
+		
+		}
+		void player::avantdroite()
+		{
+			if(control && control3)
+			{
+				rotation.y=45;
+			
+				cs.center.x+=speed;
+					
+			}
+		}
+			void player::avantgauche()
+		{
+			if(control && control4)
+			{
+				rotation.y=-45;
+				cs.center.x+=speed;
+				cs.center.z-=speed;	
+				
+						
+			
+			}
+		
+		}
+			void player::arrieredroite()
+		{
+			if(control2 && control3)
+			{
+				rotation.y=135;
+				cs.center.z+=speed;
+				cs.center.x-=speed;		
+					 
+			
+			
+			}
+		}
+			void player::arrieregauche()
+		{
+			if(control2 && control4)
+			{
+				rotation.y=-135;
+				cs.center.z-=speed;
+				cs.center.x-=speed;	
+					
+			
+			}
+		
+		}
+				void player::droite()
+		{
+			if(control3)
+			{
+				
+				rotation.y=90;
+				cs.center.z+=speed;
+
+	 			
+		}
+			
+		
+			
+		}
+				void player::gauche()
+		{
+			if(control4 )
+			{
+				
+				rotation.y=-90;
+				cs.center.z-=speed;
+					
+				
+			
+	 			
+	 			
+		}
+	
+			
+		}
+		
+		bool player::movement(vector3d playerLoc)
+		{
 		
 		
-}
-		void joueur::sethastheball(bool has)
+				
+			
+			      vector3d newPos(cs.center);
+			      	newPos.y-=0.2f;
+			direction.change(playerLoc-cs.center);
+			direction.normalize();
+		
+
+			  newPos+=direction*speed2;
+			  setLocation(newPos);
+			 	rotation.y=std::acos(direction.x)*(180/pi);
+	 				if(direction.z<0)
+	 				{
+	 					rotation.y=-rotation.y;
+					 }
+				
+				
+				
+				
+				
+				
+				
+			
+							
+			
+		}
+		bool player::update(std::vector<collisionplane>& collplane)
+		{
+		
+	/*
+			direction.change(playerLoc-cs.center);
+			direction.normalize();
+			
+		    
+		
+			/*if(!control && !control2 && !control3 && !control4 && hastheball==false)
+			    newPos+=direction*speed;
+			    */
+			         vector3d newPos(cs.center);
+			  
+			       
+			    	newPos.y-=0.2f;
+			    
+			for(int i=0;i<collplane.size();i++)
+				collision::sphereplane(newPos,collplane[i].normal,collplane[i].p[0],collplane[i].p[1],collplane[i].p[2],collplane[i].p[3],cs.r);
+	 				setLocation(newPos);
+	 					/*if(!control && !control2 && !control3 && !control4 && hastheball==false)
+	 					{
+						 
+	 				rotation.y=std::acos(-direction.x);
+	 				if(direction.z>0)
+	 				{
+	 					rotation.y=-rotation.y*(180/pi);
+					 }
+				}
+				*/
+			
+	
+				 curFrame++;
+				 
+				 
+					 
+					 if(control )
+				{
+						isshoot=false;
+					isdead=false;
+					iswalk=isattack=true;
+				
+				
+				}
+						 if(control2)
+				{
+					isdead=false;
+					iswalk=isattack=true;
+				
+				
+				}
+						 if(control3)
+				{
+					isdead=false;
+					iswalk=isattack=true;
+			
+				
+				}
+						 if(control4)
+				{
+					isdead=false;
+					iswalk=isattack=true;
+			
+				
+				}
+			else	if(!control && !control2 && !control3 && !control4)
+				{
+						isdead=true;
+					iswalk=isattack=false;
+	
+					
+						
+				}
+			
+				else if(setkeyshoot_ )
+				{
+				isshoot=true;
+					isdead=false;
+					iswalk=isattack=false;
+				}
+				else if(setkeyshoot_==false)
+				{
+						isshoot=false;
+						iswalk=isattack=true;
+						
+				}
+			
+			
+					 	 		
+					if(iswalk && curFrame>=walk)
+	{
+		curFrame=1;
+	}
+	else if( isattack && curFrame>=walk+attack)
+	{
+		curFrame=walk;
+	}
+	else if( isdead && curFrame>=walk+attack+die)
+	{
+		curFrame=walk+attack+die-1;
+	}
+	else if(isshoot && curFrame>=walk+attack+die+shoot)
+		 	 {
+		 	 	curFrame=walk+attack+die+shoot-11;
+				  }	
+
+	
+
+	
+					
+					 return 0;
+	 			
+	 		
+		}
+		void player::show()
+		{
+		glPushMatrix();
+		glTranslatef(cs.center.x,cs.center.y,cs.center.z);
+
+	 	glRotatef(-rotation.x*(180/pi),1,0,0);
+	 	glRotatef(-rotation.y,0,1,0);
+	 	glRotatef(-rotation.z*(180/pi),0,0,1);
+	 
+	 	glCallList(frames[curFrame]);
+	 	glPopMatrix();
+		}
+		bool player::setAttack(collisionsphere player)
+		{
+			if(collision::spheresphere(player.center,player.r,cs.center,cs.r))
+			{
+
+			}
+		}
+		collisionsphere * player::getCollisionSphere()
+		{
+				return &cs;
+		}
+		void player::setLocationincremente(vector3d newLoc)
+		{
+			cs.center+=newLoc;
+		}
+		void player::setLocation(vector3d newLoc)
+		{
+			cs.center=newLoc;
+		}
+		vector3d player::getLocation()
+		{
+			return cs.center;
+		}
+		void player::sethastheball(bool has)
 		{
 			hastheball=has;
 		}
-		bool joueur::gethastheball()
+		bool player::gethastheball()
 		{
 			return hastheball;
 		}
-			 void joueur::setattaquer(bool x)
+	   void player::getcontrol(bool c)
+	   {
+	   	control=c;
+	   }
+	   void player::getcontrol2(bool c)
+	   {
+	   	control2=c;
+	   }
+	   void player::getcontrol3(bool c)
+	   {
+	   	control3=c;
+	   }
+	   void player::getcontrol4(bool c)
+	   {
+	   	control4=c;
+	   }
+		bool player::setcontrol()
+		 {
+		 	return control;
+		 }
+		 	bool player::setcontrol2()
+		 {
+		 	return control2;
+		 }
+		 	bool player::setcontrol3()
+		 {
+		 	return control3;
+		 }
+		 	bool player::setcontrol4()
+		 {
+		 	return control4;
+		 }
+	
+		 float player::getRotation()
+		 {
+		 	return rotation.y;
+		 }
+		 void player::setRotation(float x)
+		 {
+		 	rotation.y=x;
+		 }
+		
+		
+		
+		 void player::setespace(bool x)
+		 {
+		 	space=x;
+		 }
+		 bool player::getespace()
+		 {
+		 	return space;
+		 }
+	
+		 void player::setattaquer(bool x)
 		 {
 		 	attaquer_=x;
 		 }
-		 	 void joueur::setdefendre(bool x)
+		 	 void player::setdefendre(bool x)
 		 {
 		 	defendre_=x;
 		 }
-		 bool joueur::getattaquer()
+		 bool player::getattaquer()
 		 {
 		 	return attaquer_;
 		 }
-		 	 bool joueur::getdefendre()
+		 	 bool player::getdefendre()
 		 {
 		 	return defendre_;
 		 }
+		 
+		 bool player::getNext()
+		 {
+		 	return next;
+		 }
+		 void player::setNext(bool n)
+		 {
+		 	next=n;
+		 }
+		 void player::shooter(bool s)
+		 {
+		 	tirer=s;
+		 }
+		 bool player::shooter_()
+		 {
+		 	return tirer;
+		 }
+		bool player::getTirer()
+		{
+			return tir;
+		}
+		void player::setTirer(bool t)
+		{
+			tir=t;
+		}
+		
+
+	
+
 
 
