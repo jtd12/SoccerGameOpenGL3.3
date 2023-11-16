@@ -4,9 +4,9 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = balle.o camera.o collision.o collisionplane.o collisionsphere.o game.o goal.o joueur.o joueurAI.o level.o main.o objloader.o player.o random.o sky.o supporter.o vector.o putthemtogether.o
-LINKOBJ  = balle.o camera.o collision.o collisionplane.o collisionsphere.o game.o goal.o joueur.o joueurAI.o level.o main.o objloader.o player.o random.o sky.o supporter.o vector.o putthemtogether.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -mwindows -lopengl32 -lglu32 C:/library/freeglut/lib/freeglut.lib -m32
+OBJ      = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o
+LINKOBJ  = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -lopengl32 C:/library/freeglut/lib/freeglut.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -m32
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = Projet1.exe
@@ -24,56 +24,47 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-balle.o: balle.cpp
-	$(CPP) -c balle.cpp -o balle.o $(CXXFLAGS)
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
-camera.o: camera.cpp
-	$(CPP) -c camera.cpp -o camera.o $(CXXFLAGS)
+common/objloader.o: common/objloader.cpp
+	$(CPP) -c common/objloader.cpp -o common/objloader.o $(CXXFLAGS)
 
-collision.o: collision.cpp
-	$(CPP) -c collision.cpp -o collision.o $(CXXFLAGS)
+common/quaternion_utils.o: common/quaternion_utils.cpp
+	$(CPP) -c common/quaternion_utils.cpp -o common/quaternion_utils.o $(CXXFLAGS)
 
-collisionplane.o: collisionplane.cpp
-	$(CPP) -c collisionplane.cpp -o collisionplane.o $(CXXFLAGS)
+common/shader.o: common/shader.cpp
+	$(CPP) -c common/shader.cpp -o common/shader.o $(CXXFLAGS)
 
-collisionsphere.o: collisionsphere.cpp
-	$(CPP) -c collisionsphere.cpp -o collisionsphere.o $(CXXFLAGS)
+common/tangentspace.o: common/tangentspace.cpp
+	$(CPP) -c common/tangentspace.cpp -o common/tangentspace.o $(CXXFLAGS)
 
-game.o: game.cpp
-	$(CPP) -c game.cpp -o game.o $(CXXFLAGS)
+common/text2D.o: common/text2D.cpp
+	$(CPP) -c common/text2D.cpp -o common/text2D.o $(CXXFLAGS)
 
-goal.o: goal.cpp
-	$(CPP) -c goal.cpp -o goal.o $(CXXFLAGS)
+common/texture.o: common/texture.cpp
+	$(CPP) -c common/texture.cpp -o common/texture.o $(CXXFLAGS)
+
+common/vboindexer.o: common/vboindexer.cpp
+	$(CPP) -c common/vboindexer.cpp -o common/vboindexer.o $(CXXFLAGS)
+
+stadium.o: stadium.cpp
+	$(CPP) -c stadium.cpp -o stadium.o $(CXXFLAGS)
 
 joueur.o: joueur.cpp
 	$(CPP) -c joueur.cpp -o joueur.o $(CXXFLAGS)
 
-joueurAI.o: joueurAI.cpp
-	$(CPP) -c joueurAI.cpp -o joueurAI.o $(CXXFLAGS)
+balle.o: balle.cpp
+	$(CPP) -c balle.cpp -o balle.o $(CXXFLAGS)
 
-level.o: level.cpp
-	$(CPP) -c level.cpp -o level.o $(CXXFLAGS)
+cameragestion.o: cameragestion.cpp
+	$(CPP) -c cameragestion.cpp -o cameragestion.o $(CXXFLAGS)
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+game.o: game.cpp
+	$(CPP) -c game.cpp -o game.o $(CXXFLAGS)
 
-objloader.o: objloader.cpp
-	$(CPP) -c objloader.cpp -o objloader.o $(CXXFLAGS)
+membres.o: membres.cpp
+	$(CPP) -c membres.cpp -o membres.o $(CXXFLAGS)
 
-player.o: player.cpp
-	$(CPP) -c player.cpp -o player.o $(CXXFLAGS)
-
-random.o: random.cpp
-	$(CPP) -c random.cpp -o random.o $(CXXFLAGS)
-
-sky.o: sky.cpp
-	$(CPP) -c sky.cpp -o sky.o $(CXXFLAGS)
-
-supporter.o: supporter.cpp
-	$(CPP) -c supporter.cpp -o supporter.o $(CXXFLAGS)
-
-vector.o: vector.cpp
-	$(CPP) -c vector.cpp -o vector.o $(CXXFLAGS)
-
-putthemtogether.o: putthemtogether.cpp
-	$(CPP) -c putthemtogether.cpp -o putthemtogether.o $(CXXFLAGS)
+passsystem.o: passsystem.cpp
+	$(CPP) -c passsystem.cpp -o passsystem.o $(CXXFLAGS)

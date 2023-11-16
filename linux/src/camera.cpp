@@ -1,347 +1,266 @@
-#include "camera.h"
 
-void camera::lockCamera()
-{
-	if(camPitch>90)
-		camPitch=90;
-	if(camPitch<-90)
-		camPitch=-90;
-	if(camYaw<0.0)
-		camYaw+=360.0;
-	if(camYaw>360.0)
-		camYaw-=360;
+
+#include "camera.hpp"
+
+
+
+glm::mat4 camera:: getViewMatrix(){
+	return ViewMatrix;
+}
+glm::mat4 camera:: getProjectionMatrix(){
+	return ProjectionMatrix;
 }
 
-void camera::moveCamera(float dir)
+glm::vec3 camera::getLocation()
 {
-	float rad=(camYaw+dir)*M_PI/180.0;
-	loc.x+=sin(rad)*movevel*0.5f;
-	loc.z-=cos(rad)*movevel*0.5f;
+return position;
 }
 
-void camera::moveCameraUp(float dir)
+void camera::setLocation(glm::vec3 loc,float rot)
 {
-	float rad=(camPitch+dir)*M_PI/180.0;
-	loc.y-=sin(rad)*movevel;
-		
-}
-
-camera::camera()
-{
-	camPitch=0;
-	camYaw=0;
-	movevel=0.3;
-	mousevel=0.3;
-	mi=ismoved=false;
-up=false;
-	down=false;
-	right=false;
-	left=false;
-
+position=loc + glm::vec3(50*sin(rot),20, 50 *cos(rot));
+target=loc;
 
 }
-camera::camera(vector3d l)
+
+camera::camera() : m_phi(0.0), m_theta(0.0), m_orientation(), m_axeVertical(0, 0, 1), m_deplacementLateral(), position(), target()
 {
-	loc.change(l);
-	camPitch=0;
-	camYaw=0;
-	movevel=0.3;
-	mousevel=0.3;
-	mi=ismoved=false;
-	up=false;
-		down=false;
-	right=false;
-	left=false;
+
 }
 
-camera::camera(vector3d l,float yaw,float pitch)
+// Initial position : on +Z
+ 
+
+
+camera::camera(glm::vec3 position, glm::vec3 pointCible, glm::vec3 axeVertical) : m_phi(-35.26), m_theta(-135), m_orientation(), m_axeVertical(axeVertical), 
+                                                                                  m_deplacementLateral(), position(position), target(pointCible)
 {
-	loc.change(l);
-	camPitch=pitch;
-	camYaw=yaw;
-	movevel=0.3;
-	mousevel=0.3;
-	mi=ismoved=false;
-		up=false;
-			down=false;
-	right=false;
-	left=false;
+
 }
 
-camera::camera(vector3d l,float yaw,float pitch,float mv,float mov)
+camera::~camera()
 {
-	loc.change(l);
-	camPitch=pitch;
-	camYaw=yaw;
-	movevel=mv;
-	mousevel=mov;
+
+}
+
+void camera::orienter(int xRel, int yRel)
+{
+	MidX=480;
+	MidY=270;
+
+    // Modification des angles
+
+    m_phi += yRel*0.05f;
+    m_theta += xRel*0.05f;
+    
+      if(m_phi > 89.0)
+        m_phi = 89.0;
+
+    else if(m_phi < -89.0)
+        m_phi = -89.0;
+        
+    
+    float phiRadian = m_phi * M_PI / 180;
+	float thetaRadian = m_theta * M_PI / 180;
+
+	if(m_axeVertical.x == 1.0)
+	{
+	    // Calcul des coordonnées sphériques
+	
+	    m_orientation.x = sin(phiRadian);
+	    m_orientation.y = cos(phiRadian) * cos(thetaRadian);
+	    m_orientation.z = cos(phiRadian) * sin(thetaRadian);
+	}
+	
+	
+	// Si c'est l'axe Y
+	
+	else if(m_axeVertical.y == 1.0)
+	{
+	    // Calcul des coordonnées sphériques
+	
+	    m_orientation.x = cos(phiRadian) * sin(thetaRadian);
+	    m_orientation.y = sin(phiRadian);
+	    m_orientation.z = cos(phiRadian) * cos(thetaRadian);
+	}
+	
+	
+	// Sinon c'est l'axe Z
+	
+	else
+	{
+	    // Calcul des coordonnées sphériques
+	
+	    m_orientation.x = cos(phiRadian) * cos(thetaRadian);
+	    m_orientation.y = cos(phiRadian) * sin(thetaRadian);
+	    m_orientation.z = sin(phiRadian);
+	}
+	
+	m_deplacementLateral = cross(m_axeVertical, m_orientation);
+    m_deplacementLateral = normalize(m_deplacementLateral);
+
+
+    // Calcul du point ciblé pour OpenGL
+
+    target = position + m_orientation;
+}
+
+void camera::tourner(int x, int y)
+{
+		if(mi)
+	{
+		glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+		orienter(MidX-x, MidY-y);
+		glutWarpPointer(MidX,MidY);
+	}
+	else
+	{
+	
+		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+	}
+}
+
+void camera::controlMouse(int button, int state, int x, int y)
+{
+
+	if(state==GLUT_DOWN && button==GLUT_LEFT_BUTTON)
+	{
+	mi=true;
+	}
+	else
+	{
+
 	mi=false;
-	up=false;
-	down=false;
-	right=false;
-	left=false;
-	p=false;
+	
+	}
+	
 }
 
 
-	/*
-	if(mi)
-	{
-		int MidX=320;
-		int MidY=240;
-		SDL_ShowCursor(SDL_DISABLE);
-		int tmpx,tmpy;
-		SDL_GetMouseState(&tmpx,&tmpy);
-		camYaw+=mousevel*(MidX-tmpx);
-		camPitch+=mousevel*(MidY-tmpy);
-		lockCamera();
-		SDL_WarpMouse(MidX,MidY);
-		Uint8* state=SDL_GetKeyState(NULL);
-		ismoved=false;
-		if(state[SDLK_w])
-		{
-			ismoved=true;
-			if(camPitch!=90 && camPitch!=-90)
-				moveCamera(0.0);
-			//moveCameraUp(0.0);
-		}else if(state[SDLK_s])
-		{
-			ismoved=true;
-			if(camPitch!=90 && camPitch!=-90)
-				moveCamera(180.0);
-			//moveCameraUp(180.0);
-		}		
-		if(state[SDLK_a])
-		{
-			ismoved=true;
-			moveCamera(90.0);
-		}
-		else if(state[SDLK_d])
-		{
-			ismoved=true;
-			moveCamera(270);	
-		}
-	}
-	glRotatef(-camPitch,1.0,0.0,0.0);
-	glRotatef(-camYaw,0.0,1.0,0.0);
-	*/
-	void camera::passiveMotion(int x, int y)
-	{
-	
-			
-	
-		
-		ismoved=false;
-		int MidX=320;
-		int MidY=240;
-		//glutSetCursor(GLUT_CURSOR_NONE);
-	//	int tmpx,tmpy;
-		//SDL_GetMouseState(&x,&y);
-		camYaw=mousevel*(x);
-		camPitch=mousevel*(y);
-		lockCamera();
-		 glutWarpPointer(x,y);
-
-	
-	}
-	void camera::motion(int x, int y)
-	{
-
-
-		
-		ismoved=false;
-		int MidX=320;
-		int MidY=240;
-		//glutSetCursor(GLUT_CURSOR_NONE);
-	//	int tmpx,tmpy;
-		//SDL_GetMouseState(&x,&y);
-		camYaw=mousevel*(x);
-		camPitch=mousevel*(y);
-		lockCamera();
-		 glutWarpPointer(x,y);
-
-	
-	}
-	void camera::controlSpecialKeyboard(int key,int x, int y)
-	{
-
-	}
-	void camera::ControlKeyboard(char key,int x, int y)
+void camera::inputSpecial(char key,int x, int y)
 {
 	switch(key)
 	{
-case 27:
-
-	exit(0);
-	break;
-		case 'p':
-		//mi=false;
-	//	glutSetCursor(GLUT_CURSOR_INFO);
-		break;	
-		case 'm':
-		//	mi=true;
-			//glutSetCursor(GLUT_CURSOR_NONE);
-			break;
-		
-		case 'w':
-	up=true;
-			glutPostRedisplay();
-			break;
-			case 's':
-				down=true;
-				glutPostRedisplay();
-			break;
-			case 'a':
-			right=true;
-				glutPostRedisplay();
-			break;
-			case 'd':
-					left=true;
-				glutPostRedisplay();
-			break;
-				
-	}
-
+		case GLUT_KEY_UP:
+		 up=true;
 	
-}
+		 glutPostRedisplay();
+		 break;
+		 case GLUT_KEY_DOWN:
 
-		void camera::passiveKeyboard(char key,int x, int y)
+		 down=true;	
+		 glutPostRedisplay();
+		 break;
+		 case GLUT_KEY_RIGHT:
+	
+		 right=true;
+		 glutPostRedisplay();
+		 break;
+		 case GLUT_KEY_LEFT:
+		 	
+		left=true;
+		glutPostRedisplay();
+	
+	}
+}
+   void camera::inputSpecialUP(char key,int x, int y)
 {
 	switch(key)
 	{
+		case GLUT_KEY_UP:
+		 up=false;
+		 glutPostRedisplay();
+		 break;
+		 case GLUT_KEY_DOWN:
+		 down=false;
+		 glutPostRedisplay();	
+		 break;
+		 case GLUT_KEY_RIGHT:
+		 right=false;
+		 glutPostRedisplay();
+		 break;
+		 case GLUT_KEY_LEFT:
+		left=false;
+		glutPostRedisplay();
+		break;
 	
-	
-		case 'w':
-			up=false;
-			glutPostRedisplay();
-			break;
-			case 's':
-				down=false;
-				glutPostRedisplay();
-			break;
-			case 'a':
-				right=false;
-				glutPostRedisplay();
-			break;
-			case 'd':
-				left=false;
-				glutPostRedisplay();
-			break;
-				
 	}
-
-	
 }
 
-void camera::Control()
- {
- 
- 
- 	if(up)
+void camera::deplacer()
 {
-		ismoved=true;
-	
-	
-			if(camPitch!=90 && camPitch!=-90)
-				moveCamera(0.0);
-				
-			moveCameraUp(0.0);
-		
-}
-else if(down)
-{
-		ismoved=true;
-
-			if(camPitch!=90 && camPitch!=-90)
-				moveCamera(180.0);
-			moveCameraUp(180.0);
-}
-if(right)
-{
-		ismoved=true;
-		
-			moveCamera(270.0);
-}
-if(left)
-{
-		ismoved=true;	
-	
-			moveCamera(90);
-}
-
- }
 	
 
-
-void camera::UpdateCamera()
-{
-	
-	glRotatef(camPitch,1.0,0.0,0.0);
-	glRotatef(camYaw,0.0,1.0,0.0);
-	glTranslatef(-loc.x,-loc.y,-loc.z);
-
+	if(up)
+	{
+	  position = position + m_orientation * 0.5f;
+	  target = position + m_orientation;
+	}
+	if(down)
+	{
+	position = position - m_orientation * 0.5f;
+    target = position + m_orientation;
+	}
+	if(left)
+	{
+	position = position + m_deplacementLateral * 0.5f;
+    target = position + m_orientation;
+	}
+	if(right)
+	 {
+    position = position - m_deplacementLateral * 0.5f;
+    target = position + m_orientation;
+	 }
+	 	
 }
 
-//change the spherical coordinate system to cartesian
-vector3d camera::getVector()
+
+void camera::setPosition(glm::vec3 loc)
 {
-	//Google->spherical to cartesian
- 	return (vector3d(-cos(camPitch*M_PI/180.0)*sin(camYaw*M_PI/180.0),sin(camPitch*M_PI/180.0),-cos(camPitch*M_PI/180.0)*cos(camYaw*M_PI/180.0)));
+	position=loc;
 }
-vector3d camera::getLocation()
+void camera::setTarget(glm::vec3 loc)
 {
-	return loc;
+	target=loc;
 }
 
-float camera::getPitch()
-{
-	return camPitch;
+
+void camera::computeMatricesFromInputs(){
+
+
+// Initial horizontal angle : toward -Z
+float horizontalAngle = 3.14f;
+// Initial vertical angle : none
+float verticalAngle = 0.0f;
+// Initial Field of View
+float initialFoV = 45.0f;
+
+float speed = 3.0f; // 3 units / second
+float mouseSpeed = 0.005f;
+	// glfwGetTime is called only once, the first time this function is called
+//	static double lastTime = glfwGetTime();
+
+	// Compute time difference between current and last frame
+	//double currentTime = glfwGetTime();
+	//float deltaTime = float(currentTime - lastTime);
+
+	// Get mouse position
+
+	// Up vector
+
+
+	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
+
+	// Projection matrix : 45Â° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+	ProjectionMatrix = glm::perspective(FoV, 4.0f / 3.0f, 0.1f, 250000.0f);
+	// Camera matrix
+	ViewMatrix       = glm::lookAt(
+								position,           // Camera is here
+								target, // and looks here : at the same position, plus "direction"
+								m_axeVertical                  // Head is up (set to 0,-1,0 to look upside-down)
+						   );
+
+	// For the next frame, the "last time" will be "now"
+
 }
 
-float camera::getYaw()
-{
-	return camYaw;
-}
-float camera::getMovevel()
-{
-	return movevel;
-}
-float camera::getMousevel()
-{
-	return mousevel;
-}
-
-bool camera::isMouseIn()
-{
-	return mi;
-}
-		
-void camera::setLocation(vector3d vec)
-{
-	loc.change(vec);
-}
-void camera::setLocation2(vector3d vec)
-{
-	loc+=vec;
-}
-void camera::lookAt(float pitch,float yaw)
-{
-	camPitch=pitch;
-	camYaw=yaw;
-}
-
-void camera::mouseIn(bool b)
-{
-	mi=b;
-}
-
-void camera::setSpeed(float mv,float mov)
-{
-	movevel=mv;
-	mousevel=mov;
-}
-
-bool camera::isMoved()
-{
-	return ismoved;
-}

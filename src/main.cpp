@@ -1,89 +1,82 @@
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+using namespace std;
+#include <stdlib.h>
+#include <string.h>
+#define GLEW_STATIC
+#include <C:\glew-1.13.0\include\GL\glew.h>
+#include <C:\glm\glm\glm.hpp>
+#include <C:\glm\glm\glm.hpp>
+#include <C:\glm\glm\gtc\matrix_transform.hpp>
+#include"C:\freeglut\include\GL\freeglut.h"
 #include"game.h"
-void shows();
-void shows2();
-void Reshapes(int width, int height);
-void special(int key, int x, int y);
-void specialUP(int key , int x, int y);
-void gestionkey(unsigned char key, int x, int y);
-void gestionUP(unsigned char key, int x, int y);
-void motion(int x, int y);
-void motionUP(int x, int y);
-char x='a';
-int windowName;
+
+using namespace glm;
 game g;
-game g2;
-game g3;
-game g4;
-int main(int argc, char *argv[])
-{
+void draw();
+void gestionSpecial(int key, int x, int y);
+void gestionSpecialUp(int key, int x, int y);
+void normalKeys(unsigned char key, int x, int y);
+void normalKeysUp(unsigned char key, int x, int y);
+char name;
+int main( int argc, char *argv[ ], char *envp[ ] )
+
+{	 
 
 
+
+
+
+int windowName;
 glutInit(&argc, argv);
 glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-glutInitWindowPosition(200,100);
 glutInitWindowSize(960,540);	//Optionnel
-windowName = glutCreateWindow("soccer game OpenGL !");
-//glutFullScreen();	//Optionnel
-glutReshapeFunc(Reshapes);
+windowName = glutCreateWindow("Soccer game OpenGL Modern!");
+
+glewExperimental=true; // Needed in core profile
+if (glewInit() != GLEW_OK) {
+    fprintf(stderr, "Failed to initialize GLEW\n");
+    return -1;
+}
+
+glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LESS);
 g.initGL();
-glutDisplayFunc(shows);
-
-glutSpecialFunc(special);
-glutSpecialUpFunc(specialUP);
-glutKeyboardFunc(gestionkey);
-glutKeyboardUpFunc(gestionUP);
-glutMotionFunc(motion);
-glutPassiveMotionFunc(motionUP);
-
-
-
-
-
-
-glutPostRedisplay();
-glutMainLoop();
-
-
-
+ glutDisplayFunc(draw);
+ glutSpecialFunc(gestionSpecial);
+ glutSpecialUpFunc(gestionSpecialUp);
+ glutKeyboardFunc(normalKeys);
+ glutKeyboardUpFunc(normalKeysUp);
+ glutPostRedisplay();
+ glutMainLoop();
 
 return 0;
-}
-
-void shows()
+ 
+}	 
+void draw()
 {
 
-	g.show();
-}
 
-void Reshapes(int width, int height)
-{
 
-	g.Reshape(width,height);
+	g.draw();
 }
-void special(int key, int x, int y)
+void gestionSpecial(int key, int x, int y)
 {
-	g.special(key,x,y);
+	g.gestionSpecial(key,x,y);
 }
-void specialUP(int key , int x, int y)
+void gestionSpecialUp(int key, int x, int y)
 {
-	g.specialUP(key,x,y);
+	g.gestionSpecialUp(key,x,y);
 }
-void gestionkey(unsigned char key, int x, int y)
-{
-	g.ControlKeyboard(key,x,y);
-	g.gestion(key,x,y);
-}
-void gestionUP(unsigned char key, int x, int y)
-{
-	g.passiveKeyboard(key,x,y);
-	g.gestionUP(key,x,y);
-}
-void motion( int x, int y)
-{
-	g.motion(x,y);
-	
-}
-void motionUP(int x, int y)
-{
-	g.passiveMotion(x,y);
-}
+void normalKeys(unsigned char key, int x, int y)
+ {
+ 	g.normalKeys( key,  x, y);
+ }
+ void normalKeysUp(unsigned char key, int x, int y)
+ {
+ 	g.normalKeysUp( key,  x,  y);
+ }
