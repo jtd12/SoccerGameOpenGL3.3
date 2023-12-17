@@ -12,6 +12,8 @@ pass::pass(){
 rand=0.0f;
 tir=false;
 timer=0.1f;	
+delay=15;
+speed=0.002f;
 }
 pass::~pass()
 {
@@ -32,43 +34,53 @@ void pass::passer(balle* b, joueur* aiplayer, float xpos,float xpos2,float zpos,
 	float dist=sqrt(distPlayerAIX*distPlayerAIX)+(distPlayerAIZ*distPlayerAIZ);
 
 
-	if(dist<1.5f)
+	if(tir && dist<2.5f && delay<=2)
 	{
   rand=randMToN(randX,randZ);
 
 		
 	}
-
-
 	
-		
-	
-	for(int i=0;i<player.size();i++)	
+	for(int i=0;i<player.size();i++)
 	{
-		
-	float distPlayerX= player[i]->getLocation().x-b->getLocation().x;
-	float distPlayerZ= player[i]->getLocation().z-b->getLocation().z;
+	
+	 float distPlayerX= player[i]->getLocation().x-b->getLocation().x;
+	 
+	 float distPlayerZ= player[i]->getLocation().z-b->getLocation().z;
 	
 	float dist2=sqrt(distPlayerX*distPlayerX)+(distPlayerZ*distPlayerZ);
+
+	if( tir&& aiplayer->gethastheball() && delay<=2)
+	{ 
+		tir=false;
+	}
+		
 	
-	if(dist<2.5f &&dist2<10 &&aiplayer->getLocation().x<xpos && aiplayer->getLocation().x>xpos2 && aiplayer->getLocation().z<zpos && aiplayer->getLocation().z>zpos2 )
+	
+
+	
+	if(dist<2.5f &&dist2<15.0f &&aiplayer->getLocation().x<xpos && aiplayer->getLocation().x>xpos2 && aiplayer->getLocation().z<zpos && aiplayer->getLocation().z>zpos2 )
 	{
 		aiplayer->sethastheball(false);
-	
+		
+		
 		tir=true;
 	
 	
- }
-
-
-	
 }
+ }
+ if(delay<0)
+  delay=10;
+
+
+
 	if(tir && aiplayer->gethastheball()==false)
 	{
-		std::cout<<"Tir"<<std::endl;
-			
-	glm::vec3 dir=playerAI[rand]->getLocation() - b->getLocation();
-			b->setLocationIncremente(glm::vec3(dir.x*0.004f,0,dir.z*0.004f));
+			setSpeed(0.002f);
+	//	std::cout<<"Tir"<<std::endl;
+			delay-=0.008f;	
+			glm::vec3 dir=playerAI[rand]->getLocation() - b->getLocation();
+			b->setLocationIncremente(glm::vec3(dir.x*speed,0,dir.z*speed));
 		
 	//	dir.y+=10.5f;
 	
@@ -76,7 +88,8 @@ void pass::passer(balle* b, joueur* aiplayer, float xpos,float xpos2,float zpos,
 	
 	}
 
-	std::cout<<tir<<std::endl;
+
+	//std::cout<<tir<<std::endl;
 }
 
 void pass::setTir(bool t)
@@ -86,6 +99,11 @@ void pass::setTir(bool t)
 bool pass::getTir()
 {
 	return tir;
+}
+
+void pass::setSpeed(float s)
+{
+	speed=s;
 }
 
 

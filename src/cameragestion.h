@@ -13,6 +13,7 @@ class camera
 		glm::mat4 getViewMatrix();
 		glm::mat4 getProjectionMatrix();
 		void setLocation(glm::vec3 l);
+		void setLocationInc(glm::vec3 l);
 		glm::vec3 getLocation();
 		private:
 glm::mat4 ViewMatrix;

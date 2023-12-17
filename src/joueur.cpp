@@ -9,6 +9,8 @@ joueur::joueur(float x, float y,float z,float rot)
 {
 position_= glm::vec3(x,y,z);
 rot_=rot;
+tirer2=false;
+
 
 }
 void joueur::setLocation(glm::vec3 position)
@@ -28,7 +30,7 @@ bool joueur::movement(glm::vec3 playerLoc)
 			if(newpos.y<=3.5f)
 			{ newpos.y=3.5f;
 			}
-			newpos+=0.03f*direction;
+			newpos+=0.12f*direction;
 			setLocation(newpos);
 			  
 			 	rot_=std::acos(direction.x);
@@ -57,7 +59,11 @@ bool joueur::movement(glm::vec3 playerLoc)
 		bool joueur::movementGOAL(glm::vec3 playerLoc)
 		{
 		
-		
+		position_.z=playerLoc.z;
+		if(position_.z>8)
+		 position_.z=8;
+		if(position_.z<-8)
+		 position_.z=-8;
 				
 			glm::vec3 newpos(position_);
 			     
@@ -96,7 +102,11 @@ bool joueur::movement(glm::vec3 playerLoc)
 		bool joueur::movementGOALAI(glm::vec3 playerLoc)
 		{
 		
-		
+		position_.z=playerLoc.z;
+		if(position_.z>8)
+		 position_.z=8;
+		if(position_.z<-8)
+		 position_.z=-8;
 				
 			glm::vec3 newpos(position_);
 			     
@@ -145,7 +155,7 @@ bool joueur::movement(glm::vec3 playerLoc)
 			if(newpos.y<=3.5f)
 			{ newpos.y=3.5f;
 			}
-			newpos+=0.05f*direction;
+			newpos+=0.1f*direction;
 			setLocation(newpos);
 			  
 			 	rot_=std::acos(-direction.x);

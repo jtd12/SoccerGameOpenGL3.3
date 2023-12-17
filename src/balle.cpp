@@ -56,9 +56,9 @@ balle::~balle()
 {
 	
 }
-void balle::update(glm::vec3 translation)
+void balle::update()
 {
-	
+	cam.setLocation(glm::vec3(0,80,50));
 }
 void balle::setLocation(glm::vec3 position)
 {

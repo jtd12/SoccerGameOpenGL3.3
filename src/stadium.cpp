@@ -6,14 +6,15 @@ static GLuint ModelMatrixID;
 
 stadium::stadium(glm::vec3 position)
 {
+	rot=0;
 	position_=position;
 }
 stadium::stadium(float x, float y,float z)
 {
 position_= glm::vec3(x,y,z);
-
+rot=0;
 }
-void stadium::loadContent()
+void stadium::loadContent(const char * filename,const char*textures)
 {
 // Generate 1 buffer, put the resulting identifier in vertexbuffer
 programID  = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
@@ -25,13 +26,13 @@ MatrixID = glGetUniformLocation(programID, "MVP");
 	// Load the texture
 	 ViewMatrixID = glGetUniformLocation(programID, "V");
 	 ModelMatrixID = glGetUniformLocation(programID, "M");
- Texture =  loadBMP_custom("data/stadium.bmp");
+ Texture =  loadBMP_custom(textures);
  
 	// Get a handle for our "myTextureSampler" uniform
  TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
 
-	bool res = loadOBJ("data/stade.obj", vertices, uvs, normals);
+	bool res = loadOBJ(filename, vertices, uvs, normals);
 
 	// Load it into a VBO
 
@@ -55,20 +56,23 @@ stadium::~stadium()
 {
 	
 }
-void stadium::update(glm::vec3 translation)
+void stadium::update()
 {
-	
+	rot+=0.0002f;
 }
 void stadium::show(glm::vec3 addp)
 {
 	glUseProgram(programID);
    GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+
 		// Compute the MVP matrix from keyboard and mouse input
 		cam.computeMatricesFromInputs(addp);
 		glm::mat4 ProjectionMatrix = cam.getProjectionMatrix();
 		glm::mat4 ViewMatrix = cam.getViewMatrix();
 		glm::mat4 ModelMatrix = glm::mat4(10.0);
-		glm::mat4 myMatrix = glm::translate(glm::mat4(), glm::vec3 (position_));
+		glm::vec3 myRotationAxis( 0.0, 0.5f,0.0);
+		glm::mat4 myRotationMatrix=glm::rotate(rot,myRotationAxis);
+		glm::mat4 myMatrix = myRotationMatrix*glm::translate(glm::mat4(), glm::vec3 (position_));
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix* ModelMatrix*myMatrix;
 
 

@@ -4,8 +4,10 @@
 #include"balle.h"
 #include"joueur.h"
 #include"membres.h"
+#include"supporter.hpp"
 #include"passsystem.hpp"
 #include"common/text2D.hpp"
+#include"guiTexture.hpp"
 
 class game
 {
@@ -23,7 +25,7 @@ class game
 		void followAI();
 		bool limitBalle();
 		void limitJoueur();
-		void passer();
+		void passer(joueur* player);
 		void passerAI();
 		void passerGoal();
 		void goal_();
@@ -43,36 +45,55 @@ class game
 		bool getright();
 		bool getleft();
 		void follow();
-		void input();
-		void input2();
-		void input3();
-		void input4();
-		void input5();
-		void input6();
-		void input7();
-		void input8();
-		void input9();
-		void input10();
+		void input(float speed);
+		void input2(float speed);
+		void input3(float speed);
+		void input4(float speed);
+		void input5(float speed);
+		void input6(float speed);
+		void input7(float speed);
+		void input8(float speed);
+		void input9(float speed);
+		void input10(float speed);
 		void drawLimit(membres* membres,glm::vec3 pos);
+		void loadSupporters();
+		void loadCinematik();
 		
 		private:
 	std::vector<joueur*> player;
+	std::vector<supporter*> support;
+
 std::vector<joueur*> playerAI;	
 std::vector<joueur*> goal;
-		stadium *stade;
-		pass* p;
+stadium *stade;
+stadium* echafaudage;
+stadium* decor;
+stadium* sky;
+stadium* water;
+pass* p;
 balle* ball;
 std::vector<membres*> membres_;
 std::vector<membres*> membres2_;
 std::vector<membres*> membres3_;
 std::vector<membres*> membres4_;
 std::vector<membres*> membres5_;
+gui * guiTexture;
+gui * guiTexture2;
+gui * guiTexture3;
+gui* guiTexture4;
+gui* guiTexture5;
+int numberSupporters;
 int menu,startgame;
 bool up,down,right,left,espace;
 float temps;
+float speed;
 int mitemps;
+int rand;
+float delay;
 int scoreA,scoreB;
-bool tir;
+bool tir,controls,controls2;
+camera cam;
+glm::vec3 locGuiTexture;
 };
 #endif
 

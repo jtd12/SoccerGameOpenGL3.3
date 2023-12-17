@@ -51,8 +51,9 @@ class joueur
 		void setdefendre(bool x);
 		bool getattaquer();
 		bool getdefendre();
-	
-
+		bool tirer;
+		bool tirer2;
+	camera cam;
 	private:
 		GLuint vertexbuffer;
 GLuint programID;
@@ -74,8 +75,8 @@ GLuint programID;
 				bool next;
 				bool hastheball;
 					bool attaquer_,defendre_;
-					bool tirer;
-					camera cam;
+				
+				
 				
 			
 

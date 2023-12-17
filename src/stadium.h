@@ -14,6 +14,7 @@ using namespace std;
 #include <C:\library\glm\glm\glm.hpp>
 #include <C:\library\glm\glm\glm.hpp>
 #include <C:\library\glm\glm\gtc\matrix_transform.hpp>
+#include <C:\library\glm\glm\gtx\transform.hpp>
 #include "common/shader.hpp"
 #include "common/texture.hpp"
 #include "common/objloader.hpp"
@@ -26,16 +27,17 @@ class stadium
 	stadium(glm::vec3 position);
 	stadium(float x, float y, float z);
 	~stadium();
-		void loadContent();
-	void update(glm::vec3 translation);
+		void loadContent(const char * filename,const char*textures);
+	void update();
 	void show(glm::vec3 addp);
+			camera cam;	 
 	private:
 		 std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 			
 						glm::vec3 position_;
-						camera cam;	 
+				
 		GLuint vertexbuffer;
 GLuint programID;
 	GLuint MatrixID;
@@ -44,6 +46,7 @@ GLuint programID;
 		GLuint TextureID;
 		GLuint TextureID2;
 		GLuint uvbuffer;
+		float rot;
 			// Read our .obj file
 
 			 

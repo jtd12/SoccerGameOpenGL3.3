@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o
-LINKOBJ  = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o
+OBJ      = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o supporter.o guiTexture.o
+LINKOBJ  = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o supporter.o guiTexture.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -lopengl32 C:/library/freeglut/lib/freeglut.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -m32
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -68,3 +68,9 @@ membres.o: membres.cpp
 
 passsystem.o: passsystem.cpp
 	$(CPP) -c passsystem.cpp -o passsystem.o $(CXXFLAGS)
+
+supporter.o: supporter.cpp
+	$(CPP) -c supporter.cpp -o supporter.o $(CXXFLAGS)
+
+guiTexture.o: guiTexture.cpp
+	$(CPP) -c guiTexture.cpp -o guiTexture.o $(CXXFLAGS)

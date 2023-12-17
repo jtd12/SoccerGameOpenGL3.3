@@ -36,8 +36,9 @@ class membres
 		void setRotation3(float r);
 		void setRotation4(float r);
 		float getRotation3();
-		private:
 			camera cam;
+		private:
+		
 					GLuint vertexbuffer;
 GLuint programID;
 	GLuint MatrixID;

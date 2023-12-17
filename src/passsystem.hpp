@@ -12,6 +12,7 @@ using namespace std;
 
 inline int randMToN(int M, int N);
 
+
 class pass
 {
 	public:
@@ -24,11 +25,14 @@ class pass
 		std::vector<joueur*> playerAI);
 	void setTir(bool t);
 	bool getTir();
+	void setSpeed(float s);
 	
 	private:
 		float rand;
 		float timer;
 		bool tir;
+		float delay;
+		float speed;
 		
 };
 

@@ -196,9 +196,18 @@ playerAI[i]->loadContent("data/corps.obj","data/corpsAI.bmp");
 goal[0]->loadContent("data/corps.obj","data/corps.bmp");
 goal[1]->loadContent("data/corps.obj","data/corpsAI.bmp");
 stade=new stadium(0,0,0);
-stade->loadContent();
+stade->loadContent("data/stade_final.obj","data/stadium.bmp");
+echafaudage=new stadium(0,0,0);
+echafaudage->loadContent("data/echafaudage.obj","data/crate10b.bmp");
+decor=new stadium(0,0,0);
+decor->loadContent("data/decor.obj","data/crate10b.bmp");
+sky=new stadium(0,0,0);
+sky->loadContent("data/sky.obj","data/sky.bmp");
+water=new stadium(0,0,0);
+water->loadContent("data/water.obj","data/wat.bmp");
 ball=new balle(0,2.3,0,0);
 ball->loadContent();
+loadSupporters();
 left=up=right=down=espace=false;
 startgame=0;
 menu=1;
@@ -207,7 +216,164 @@ scoreA=0;
 scoreB=0;
 initText2D( "data/Holstein.DDS" );
 p=new pass();
+controls=true;
+speed=0.2f;
+delay=5.0f;
+
+ball->cam.setLocation(glm::vec3(0,80,50));
+stade->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<membres_.size();i++)
+membres_[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<membres2_.size();i++)
+membres2_[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<membres3_.size();i++)
+membres3_[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<membres4_.size();i++)
+membres4_[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<membres5_.size();i++)
+membres5_[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<player.size();i++)
+player[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<playerAI.size();i++)
+playerAI[i]->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<support.size();i++)
+support[i]->cam.setLocation(glm::vec3(0,80,50));
+decor->cam.setLocation(glm::vec3(0,80,50));
+echafaudage->cam.setLocation(glm::vec3(0,80,50));
+sky->cam.setLocation(glm::vec3(0,80,50));
+water->cam.setLocation(glm::vec3(0,80,50));
+for(int i=0;i<goal.size();i++)
+goal[i]->cam.setLocation(glm::vec3(0,80,50));
+
+guiTexture=new gui("data/gui01.bmp");
+guiTexture2=new gui("data/gui02.bmp");
+guiTexture3=new gui("data/gui03.bmp");
+guiTexture4=new gui("data/compo.bmp");
+guiTexture5=new gui("data/compo2.bmp");
+guiTexture->cam.setLocation(glm::vec3(0,80,50));
+guiTexture2->cam.setLocation(glm::vec3(0,80,50));
+guiTexture3->cam.setLocation(glm::vec3(0,80,50));
+guiTexture4->cam.setLocation(glm::vec3(0,80,50));
+guiTexture5->cam.setLocation(glm::vec3(0,80,50));
+numberSupporters=0;
+locGuiTexture.y=80;
 }
+
+
+void game::loadSupporters()
+{
+	
+
+
+		for(int i=0;i<12;i++)
+		support.push_back(new supporter(  -10+(i*10),25,-135,  0.0f));
+		
+		for(int i=0;i<12;i++)
+		support.push_back(new supporter(  -10+(i*10),20,-125,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),35,-145,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),30,-140,  0.0f));
+	
+		
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),65,-160,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),60,-155,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),75,-180,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),70,-175,  0.0f));
+		
+		
+		
+		
+		
+		
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),25,135,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),20,125,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),35,145,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -100+(i*10),30,140,  0.0f));
+	
+		
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),65,160,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),60,155,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),75,180,  0.0f));
+		
+		for(int i=0;i<22;i++)
+		support.push_back(new supporter(  -120+(i*10),70,175,  0.0f));
+		
+		
+		
+		
+		
+		
+		
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),25,-165,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),35,-170,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),45,-175,  1.55f));
+		
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),55,-180,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),65,-195,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),75,-200,  1.55f));
+		
+		
+		
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),25,165,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),35,170,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),45,175,  1.55f));
+		
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),55,180,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),65,195,  1.55f));
+		
+		for(int i=0;i<15;i++)
+		support.push_back(new supporter(  -80+(i*10),75,200,  1.55f));
+		
+		
+}
+
 void game::collision()
 {
 	for(int i=0;i<player.size();i++)
@@ -217,39 +383,57 @@ void game::collision()
 	float d=sqrt(((player[i]->getLocation().x-ball->getLocation().x)*(player[i]->getLocation().x-ball->getLocation().x))
 	+((player[i]->getLocation().y-ball->getLocation().y)*(player[i]->getLocation().y-ball->getLocation().y))
 	+((player[i]->getLocation().z-ball->getLocation().z)*(player[i]->getLocation().z-ball->getLocation().z)));
-	
+		
+		float d2=sqrt(((playerAI[j]->getLocation().x-ball->getLocation().x)*(playerAI[j]->getLocation().x-ball->getLocation().x))
+	+((playerAI[j]->getLocation().y-ball->getLocation().y)*(playerAI[j]->getLocation().y-ball->getLocation().y))
+	+((playerAI[j]->getLocation().z-ball->getLocation().z)*(playerAI[j]->getLocation().z-ball->getLocation().z)));
 //	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
 
-		if(d<2.0f &&  player[i]->getTirer()==false)
+		if(d<1.5f  && player[i]->getTirer()==false)
 		{
 			player[i]->sethastheball(true);
-				player[j]->setTirer(false);
+			player[i]->setTirer(false);
 			playerAI[j]->sethastheball(false);
+			p->setSpeed(0.0f);
+			p->setTir(false);
+		//	controls=true;
 			
 			
 		}
 		else
 		{
-			player[i]->sethastheball(false);	
+			player[i]->sethastheball(false);
+	
+		
 		}
 		if(player[i]->gethastheball() )
 		{
-			ball->setLocation(glm::vec3(player[i]->getLocation().x+1.2f,ball->getLocation().y,player[i]->getLocation().z));
+	p->setSpeed(0.0f);
+		p->setTir(false);
+			ball->setLocation(glm::vec3(player[i]->getLocation().x+0.5f,ball->getLocation().y,player[i]->getLocation().z));
 		}
 			if(player[i]->gethastheball() && getup())
 		{
-			ball->setLocation(glm::vec3(player[i]->getLocation().x+1.4f,ball->getLocation().y,player[i]->getLocation().z));
+		p->setSpeed(0.0f);
+			p->setTir(false);
+			ball->setLocation(glm::vec3(player[i]->getLocation().x+0.5f,ball->getLocation().y,player[i]->getLocation().z));
 		}
 			if(player[i]->gethastheball() && getdown())
 		{
-			ball->setLocation(glm::vec3(player[i]->getLocation().x-0.4f,ball->getLocation().y,player[i]->getLocation().z));
+	p->setSpeed(0.0f);
+		p->setTir(false);
+			ball->setLocation(glm::vec3(player[i]->getLocation().x-0.5f,ball->getLocation().y,player[i]->getLocation().z));
 		}
 		if(player[i]->gethastheball() && getright())
 		{
+	p->setSpeed(0.0f);
+		p->setTir(false);
 			ball->setLocation(glm::vec3(player[i]->getLocation().x,ball->getLocation().y,player[i]->getLocation().z+0.4f));
 		}
 		if(player[i]->gethastheball() && getleft())
 		{
+	p->setSpeed(0.0f);
+		p->setTir(false);
 			ball->setLocation(glm::vec3(player[i]->getLocation().x,ball->getLocation().y,player[i]->getLocation().z-0.4f));
 		}
 		
@@ -258,62 +442,80 @@ void game::collision()
 }
 void game::collisionGOAL()
 {
-	for(int i=0;i<goal.size();i++)
-	{
-	
-	float d=sqrt(((goal[i]->getLocation().x-ball->getLocation().x)*(goal[i]->getLocation().x-ball->getLocation().x))
-	+((goal[i]->getLocation().y-ball->getLocation().y)*(goal[i]->getLocation().y-ball->getLocation().y))
-	+((goal[i]->getLocation().z-ball->getLocation().z)*(goal[i]->getLocation().z-ball->getLocation().z)));
+
+	float d=sqrt(((goal[0]->getLocation().x-ball->getLocation().x)*(goal[0]->getLocation().x-ball->getLocation().x))
+	+((goal[0]->getLocation().y-ball->getLocation().y)*(goal[0]->getLocation().y-ball->getLocation().y))
+	+((goal[0]->getLocation().z-ball->getLocation().z)*(goal[0]->getLocation().z-ball->getLocation().z)));
 	
 //	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
 
-		if(d<2 &&  goal[i]->getTirer()==false)
+		if(d<2 )
 		{
-			goal[i]->sethastheball(true);
+			goal[0]->sethastheball(true);
 			
 			
 			
 		}
 		else
 		{
-			goal[i]->sethastheball(false);	
+			goal[0]->sethastheball(false);	
+		}
+		
+		
+			float d2=sqrt(((goal[1]->getLocation().x-ball->getLocation().x)*(goal[1]->getLocation().x-ball->getLocation().x))
+	+((goal[1]->getLocation().y-ball->getLocation().y)*(goal[1]->getLocation().y-ball->getLocation().y))
+	+((goal[1]->getLocation().z-ball->getLocation().z)*(goal[1]->getLocation().z-ball->getLocation().z)));
+	
+//	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
+
+		if(d2<2)
+		{
+			goal[1]->sethastheball(true);
+			
+			
+			
+		}
+		else
+		{
+			goal[1]->sethastheball(false);	
 		}
 	
+	
 		
-	}
+	
 	
 }
 void game::collisionAI()
 {
 	for(int i=0;i<playerAI.size();i++)
- 	for(int j=0;j<player.size();j++)
+
 	{
-	
+		for(int j=0;j<player.size();j++)
+
+	{
 	float d=sqrt(((playerAI[i]->getLocation().x-ball->getLocation().x)*(playerAI[i]->getLocation().x-ball->getLocation().x))
 	+((playerAI[i]->getLocation().y-ball->getLocation().y)*(playerAI[i]->getLocation().y-ball->getLocation().y))
 	+((playerAI[i]->getLocation().z-ball->getLocation().z)*(playerAI[i]->getLocation().z-ball->getLocation().z)));
 	
 //	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
 
-		if(d<2.0f &&  playerAI[i]->getTirer()==false)
+		if(d<1.5f &&  playerAI[i]->getTirer()==false)
 		{
 			playerAI[i]->sethastheball(true);
-			
 			player[j]->sethastheball(false);
-			player[j]->setTirer(false);
+		
+			
 		//	p->setTir(false);
 			
-		}
-		if(d<1.5f)
+		
+}
+		if(d>1.5f)
 		{
-			p->setTir(false);	
-			
+			playerAI[i]->sethastheball(false);
 		}
-		else
-		{
-			playerAI[i]->sethastheball(false);	
-		}
-		if(playerAI[i]->gethastheball() && p->getTir()==false  && player[i]->getTirer()==false)
+	
+		
+		if(playerAI[i]->gethastheball() && p->getTir()==false &&  playerAI[i]->getTirer()==false)
 		{
 			
 			ball->setLocation(glm::vec3(playerAI[i]->getLocation().x-0.8f,ball->getLocation().y,playerAI[i]->getLocation().z));
@@ -322,29 +524,122 @@ void game::collisionAI()
 		
 	
 		
-		
-	}
 	
+	}
 }
-void game::passer()
+}
+void game::passer(joueur* player)
 {
-	for(int i=0;i<player.size();i++)
+
+	 
+	float x,y,z;
+
+   
+	float dist=sqrt(((player->getLocation().x-ball->getLocation().x)*(player->getLocation().x-ball->getLocation().x))
+	+((player->getLocation().y-ball->getLocation().y)*(player->getLocation().y-ball->getLocation().y))
+	+((player->getLocation().z-ball->getLocation().z)*(player->getLocation().z-ball->getLocation().z)));
+	
+    
 
 	
-					if(getespace() && 	player[i]->gethastheball())
-					{
-						player[i]->setTirer(true);
-						playerAI[i]->sethastheball(false);
-					}
+
+		if( player->gethastheball()==false && delay<25)
+		{
+		
+			player->setTirer(false);
 			
-				for(int i=0;i<player.size();i++)		
-					if(player[i]->getTirer())
+		
+			
+		}
+	if(player->gethastheball() || player->gethastheball()==false)
+	{
+			delay-=0.8f;
+	}
+	//std::cout<<delay<<std::endl;
+
+					if(getespace() && player->gethastheball() )
+					{
+						
+						//z+=sin(player[i]->getRot());
+							 controls=false;
+						player->setTirer(true);
+						
+					delay=150;
+						 
+					//	playerAI[i]->sethastheball(false);
+					}
+				else if(getespace()==false && delay<25 )
+				{
+					
+					 controls=true;
+					 
+				
+				}
+			
+			
+						
+					if(player->getTirer() && player->getRot()==-1.5f)
 					{
 					
-						ball->setLocationIncremente(glm::vec3(0.09f,0,0.0f));
+					speed=2.5f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(0,0,speed));
 							
 				}
 				
+						
+				else	if(player->getTirer() &&  player->getRot()==1.5f)
+					{
+					
+					speed=2.5f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(0,0,-speed));
+							
+				}
+				
+					else	if(player->getTirer() &&  player->getRot()==3.0f)
+					{
+					
+					speed=2.5f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(-speed,0,0));
+							
+				}
+				
+					else	if(player->getTirer() &&  player->getRot()==0.0f)
+					{
+					
+					speed=2.5f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(speed,0,0));
+							
+				
+				
+				
+			}
+				
+				
+			
 
 
 				
@@ -355,82 +650,16 @@ void game::passer()
 	{
 	
 		
-		
-		float x=ball->getSpeedBallGoal()*ball->getangle().x;
-float z=ball->getSpeedBallGoal()*ball->getangle().z;
-
-
-	ball->setLocationIncremente(glm::vec3(x*0.5f,0,z));
-	for(int j=0;j<goal.size();j++)
-			{
-				 if(goal[j]->gethastheball()==true)
+				 if(goal[0]->gethastheball()==true)
 				 {
-				 
-						ball->setangle(glm::vec3(cos(goal[j]->getRot()),0,sin(goal[j]->getRot())));
-					
-				}
-			}
-
-
-				for(int j=0;j<goal.size();j++)
-			{
-					if(ball->getLocation().x<-35 && ball->getLocation().x>-55 && goal[j]->gethastheball() || ball->getLocation().x<55 && ball->getLocation().x>35  && goal[j]->gethastheball())
-					{
-						
-						goal[j]->setTirer(true);
-							
-				}
-			else
-			{
-			
-			
-					goal[j]->setTirer(false);
-					
-		}
-	}
+				 		ball->setLocationIncremente(glm::vec3(20.0f,0,7.5));
+				 }
+			 if(goal[1]->gethastheball()==true)
+				 {
+				 		ball->setLocationIncremente(glm::vec3(-20.0f,0,7.5));
+				 }
 		
-				
-				for(int j=0;j<goal.size();j++)
-				if(	goal[j]->getTirer()  &&  ball->getSpeedBallGoal()<=ball->maxSpeed_())
-				{
-			
-			
-				if(ball->getSpeedBallGoal()<0)
-				{
-					ball->setSpeedBallAccGoal(ball->dece());
-				}
-				else
-				{
-				
-					ball->setSpeedBallAccGoal(ball->acce());
-				}
-			}
-			
-				
-				for(int j=0;j<goal.size();j++)
-				if(goal[j]->getTirer()==false)
-			{
-				if(ball->getSpeedBallGoal()-ball->dece()>0)
-				{
-					ball->setSpeedBallDecGoal(ball->dece());
-				}
-				else if(ball->getSpeedBallGoal()+ball->dece()<0)
-				{
-					ball->setSpeedBallDecGoal(ball->dece());
-				}
-				else
-				{
-					ball->setSpeedBallGoal(0);
-				}
-			
-		
-		}
 
-
-				
-		
-	
-	
 
 
 }
@@ -443,10 +672,21 @@ float z=ball->getSpeedBallGoal()*ball->getangle().z;
 	
 
 	for(int i=0;i<playerAI.size();i++)
+{
 
+		
+		
+			if( ball->getLocation().x>-30)
+			{
+			
+			rand=randMToN(0, 30);
 	
-					if(ball->getLocation().x<-20 )
+		}
+	
+					if(ball->getLocation().x<-30)
 					{
+					
+						p->setTir(false);
 						playerAI[i]->setTirer(true);
 						playerAI[i]->sethastheball(false);
 					}
@@ -455,14 +695,37 @@ float z=ball->getSpeedBallGoal()*ball->getangle().z;
 						playerAI[i]->setTirer(false);
 					}
 				for(int i=0;i<playerAI.size();i++)		
-					if(playerAI[i]->getTirer())
+					if(playerAI[i]->getTirer() && rand>25)
 					{
 					
-						ball->setLocationIncremente(glm::vec3(-0.015f,0,0.0f));
+						ball->setLocationIncremente(glm::vec3(-0.003f,0,(float)-0.0002f));
+							
+				}
+					for(int i=0;i<playerAI.size();i++)		
+					if(playerAI[i]->getTirer() && rand<25 && rand>10)
+					{
+					
+						ball->setLocationIncremente(glm::vec3(-0.003f,0,(float)0.0002f));
 							
 				}
 			
-		
+				for(int i=0;i<playerAI.size();i++)		
+					if(playerAI[i]->getTirer() && rand<10 && rand>5)
+					{
+					
+						ball->setLocationIncremente(glm::vec3(-0.003f,0,(float)0.0005f));
+							
+				}
+				for(int i=0;i<playerAI.size();i++)		
+					if(playerAI[i]->getTirer() && rand<5)
+					{
+					
+						ball->setLocationIncremente(glm::vec3(-0.003f,0,(float)-0.0005f));
+							
+				}
+			
+			
+	}
 	
 		
 				
@@ -936,7 +1199,7 @@ void game::movementAI()
 									}
 												for(int i=0;i<playerAI.size();i++)
 											{
-											if(playerAI[i]->gethastheball() && playerAI[i]->movementAI(glm::vec3(-35+i,4,0)))
+											if(playerAI[i]->gethastheball() && p->getTir()==false && playerAI[i]->movementAI(glm::vec3(-35+i,4,0)))
 			{
 				
 			}
@@ -1161,12 +1424,12 @@ void game::movementAI()
 
 bool game::limitBalle()
 {
-	if(ball->getLocation().x>48)
+	if(ball->getLocation().x>55)
 	{
 	return true;
 	
 }
-else if(ball->getLocation().x<-48)
+else if(ball->getLocation().x<-55)
 {
 		return true;
 }
@@ -1540,7 +1803,7 @@ float hypotenuse9 = sqrt((Distance9.x * Distance9.x) + (Distance9.z * Distance9.
 float hypotenuse10 = sqrt((Distance10.x * Distance10.x) + (Distance10.z * Distance10.z));
 
 	if(hypotenuse<hypotenuse2 && hypotenuse<hypotenuse3 && hypotenuse<hypotenuse4 && hypotenuse<hypotenuse5 && hypotenuse<hypotenuse6 && hypotenuse<hypotenuse7 && hypotenuse<hypotenuse8 && hypotenuse<hypotenuse9 
-&& hypotenuse<hypotenuse10 && hypotenuse>1)
+&& hypotenuse<hypotenuse10 && hypotenuse>0.9f)
 {
 playerAI[0]->setNext(true);
 }
@@ -1559,7 +1822,7 @@ if(playerAI[0]->getNext()  )
 
 
 if(hypotenuse2<hypotenuse && hypotenuse2<hypotenuse3 && hypotenuse2<hypotenuse4 && hypotenuse2<hypotenuse5 && hypotenuse2<hypotenuse6 && hypotenuse2<hypotenuse7 && hypotenuse2<hypotenuse8 && hypotenuse2<hypotenuse9 
-&& hypotenuse2<hypotenuse10 &&hypotenuse2>1)
+&& hypotenuse2<hypotenuse10 &&hypotenuse2>0.9f)
 {
 			
 playerAI[1]->setNext(true);
@@ -1574,7 +1837,7 @@ playerAI[1]->setNext(false);
 										
 }
 if(hypotenuse3<hypotenuse && hypotenuse3<hypotenuse2 && hypotenuse3<hypotenuse4 && hypotenuse3<hypotenuse5 && hypotenuse3<hypotenuse6 && hypotenuse3<hypotenuse7 && hypotenuse3<hypotenuse8 && hypotenuse3<hypotenuse9 
-&& hypotenuse3<hypotenuse10 &&hypotenuse3>1)
+&& hypotenuse3<hypotenuse10 &&hypotenuse3>0.9f)
 {
 playerAI[2]->setNext(true);
 }
@@ -1590,7 +1853,7 @@ if(playerAI[2]->getNext()   )
 }
 
 if(hypotenuse4<hypotenuse && hypotenuse4<hypotenuse2 && hypotenuse4<hypotenuse3 && hypotenuse4<hypotenuse5 && hypotenuse4<hypotenuse6 && hypotenuse4<hypotenuse7 && hypotenuse4<hypotenuse8 && hypotenuse4<hypotenuse9 
-&& hypotenuse4<hypotenuse10 &&hypotenuse4>1)
+&& hypotenuse4<hypotenuse10 &&hypotenuse4>0.9f)
 {
 playerAI[3]->setNext(true);
 }
@@ -1607,7 +1870,7 @@ if(playerAI[3]->getNext()  )
 
 
 if(hypotenuse5<hypotenuse && hypotenuse5<hypotenuse2 && hypotenuse5<hypotenuse3 && hypotenuse5<hypotenuse4 && hypotenuse5<hypotenuse6 && hypotenuse5<hypotenuse7 && hypotenuse5<hypotenuse8 && hypotenuse5<hypotenuse9
-&& hypotenuse5<hypotenuse10  &&hypotenuse5>1)
+&& hypotenuse5<hypotenuse10  &&hypotenuse5>0.9f)
 {
 playerAI[4]->setNext(true);
 }
@@ -1624,7 +1887,7 @@ if(playerAI[4]->getNext()  )
 
 
 if(hypotenuse6<hypotenuse && hypotenuse6<hypotenuse2 && hypotenuse6<hypotenuse3 && hypotenuse6<hypotenuse4 && hypotenuse6<hypotenuse5 && hypotenuse6<hypotenuse7 && hypotenuse6<hypotenuse8 && hypotenuse6<hypotenuse9 
-&& hypotenuse6<hypotenuse10 &&hypotenuse6>1 )
+&& hypotenuse6<hypotenuse10 &&hypotenuse6>0.9f )
 {
 playerAI[5]->setNext(true);
 }
@@ -1642,7 +1905,7 @@ if(playerAI[5]->getNext() )
 
 
 if(hypotenuse7<hypotenuse && hypotenuse7<hypotenuse2 && hypotenuse7<hypotenuse3 && hypotenuse7<hypotenuse4 && hypotenuse7<hypotenuse5 && hypotenuse7<hypotenuse6 && hypotenuse7<hypotenuse8 && hypotenuse7<hypotenuse9 
-&& hypotenuse7<hypotenuse10 &&hypotenuse7>1 )
+&& hypotenuse7<hypotenuse10 &&hypotenuse7>0.9f )
 {
 playerAI[6]->setNext(true);
 }
@@ -1660,7 +1923,7 @@ if(playerAI[6]->getNext()  )
 
 
 if(hypotenuse8<hypotenuse && hypotenuse8<hypotenuse2 && hypotenuse8<hypotenuse3 && hypotenuse8<hypotenuse4 && hypotenuse8<hypotenuse5 && hypotenuse8<hypotenuse6 && hypotenuse8<hypotenuse7 && hypotenuse8<hypotenuse9 
-&& hypotenuse8<hypotenuse10 &&hypotenuse8>1 )
+&& hypotenuse8<hypotenuse10 &&hypotenuse8>0.9f )
 {
 
 playerAI[7]->setNext(true);
@@ -1679,7 +1942,7 @@ if(playerAI[7]->getNext()  )
 
 
 if(hypotenuse9<hypotenuse && hypotenuse9<hypotenuse2 && hypotenuse9<hypotenuse3 && hypotenuse9<hypotenuse4 && hypotenuse9<hypotenuse5 && hypotenuse9<hypotenuse6 && hypotenuse9<hypotenuse7 && hypotenuse9<hypotenuse8 
-&& hypotenuse9<hypotenuse10  &&hypotenuse9>1)
+&& hypotenuse9<hypotenuse10  &&hypotenuse9>0.9f)
 {
 playerAI[8]->setNext(true);
 }
@@ -1697,7 +1960,7 @@ if(playerAI[8]->getNext()  )
 
 
 if(hypotenuse10<hypotenuse && hypotenuse10<hypotenuse2 && hypotenuse10<hypotenuse3 && hypotenuse10<hypotenuse4 && hypotenuse10<hypotenuse5 && hypotenuse10<hypotenuse6 && hypotenuse10<hypotenuse7 && hypotenuse10<hypotenuse8 
-&&  hypotenuse10<hypotenuse9&&hypotenuse10>1)
+&&  hypotenuse10<hypotenuse9&&hypotenuse10>0.9f)
 {
 playerAI[9]->setNext(true);
 }
@@ -1875,7 +2138,7 @@ if(hyp1<=hyp2 && hyp1<=hyp3 && hyp1<=hyp4 && hyp1<=hyp5 && hyp1<=hyp6  && hyp1<=
 
 
 
-										input();
+										input(0.04f);
 										
 }
 
@@ -1884,7 +2147,7 @@ if(player[1]->getNext())
 
 
 
-										input2();
+										input2(0.04f);
 										
 }
 if(player[2]->getNext())
@@ -1892,7 +2155,7 @@ if(player[2]->getNext())
 
 
 
-										input3();
+										input3(0.04f);
 										
 }
 if(player[3]->getNext())
@@ -1900,7 +2163,7 @@ if(player[3]->getNext())
 
 
 
-										input4();
+										input4(0.04f);
 										
 }
 if(player[4]->getNext())
@@ -1908,7 +2171,7 @@ if(player[4]->getNext())
 
 
 
-										input5();
+										input5(0.04f);
 										
 }
 if(player[5]->getNext())
@@ -1916,7 +2179,7 @@ if(player[5]->getNext())
 
 
 
-										input6();
+										input6(0.04f);
 										
 }
 if(player[6]->getNext())
@@ -1924,7 +2187,7 @@ if(player[6]->getNext())
 
 
 
-										input7();
+										input7(0.04f);
 										
 }
 if(player[7]->getNext())
@@ -1932,7 +2195,7 @@ if(player[7]->getNext())
 
 
 
-										input8();
+										input8(0.04f);
 										
 }
 if(player[8]->getNext())
@@ -1940,7 +2203,7 @@ if(player[8]->getNext())
 
 
 
-										input9();
+										input9(0.04f);
 										
 }
 if(player[9]->getNext())
@@ -1948,58 +2211,58 @@ if(player[9]->getNext())
 
 
 
-										input10();
+										input10(0.04f);
 										
 }
    
 if(player[0]->gethastheball())
 {
-	input();
+	input(0.09f);
 }
 	
 if(player[1]->gethastheball())
 {
-	input2();
+	input2(0.09f);
 }
 	
 if(player[2]->gethastheball())
 {
-	input3();
+	input3(0.09f);
 }
 	
 if(player[3]->gethastheball())
 {
-	input4();
+	input4(0.09f);
 }
 	
 if(player[4]->gethastheball())
 {
-	input5();
+	input5(0.09f);
 }
 	
 if(player[5]->gethastheball())
 {
-	input6();
+	input6(0.09f);
 }
 	
 if(player[6]->gethastheball())
 {
-	input7();
+	input7(0.09f);
 }
 	
 if(player[7]->gethastheball())
 {
-	input8();
+	input8(0.09f);
 }
 	
 if(player[8]->gethastheball())
 {
-	input9();
+	input9(0.09f);
 }
 	
 if(player[9]->gethastheball())
 {
-	input10();
+	input10(0.09f);
 }
 
 
@@ -2007,412 +2270,413 @@ if(player[9]->gethastheball())
 
 }
 
-void game::input()
+void game::input(float speed)
 {
+	
 
 		if(getup())
 	{
 			
-			player[0]->update(glm::vec3(0.02,0,0));
+			player[0]->update(glm::vec3(speed,0,0));
 			player[0]->setRot(0.0f);
 		
 	}
 		if(getdown())
 	{
 			player[0]->setRot(3.0f);
-			player[0]->update(glm::vec3(-0.02,0,0));
+			player[0]->update(glm::vec3(-speed,0,0));
 			
 	}
-	if(getright())
+	if(getright() 	&& player[0]->getTirer()==false)
 	{
 		player[0]->setRot(-1.5f);
-			player[0]->update(glm::vec3(0.0,0,0.02));
+			player[0]->update(glm::vec3(0.0,0,speed));
 			
 			
 	}
-	if(getleft())
+	if(getleft()&& player[0]->getTirer()==false)
 	{
 		player[0]->setRot(1.5f);
-			player[0]->update(glm::vec3(0.0,0,-0.02));
+			player[0]->update(glm::vec3(0.0,0,-speed));
 
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[0]->getTirer()==false)
 	{
 			player[0]->setRot(-0.75f);
 			
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[0]->getTirer()==false)
 	{
 			player[0]->setRot(0.75f);
 		
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[0]->getTirer()==false)
 	{
 			player[0]->setRot(-2.25f);
 			
 				}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[0]->getTirer()==false)
 	{
 			player[0]->setRot(2.25f);
 		
 	}
 }
-void game::input2()
+void game::input2(float speed)
 {
 		if(getup())
 	{
 
-			player[1]->update(glm::vec3(0.02,0,0));
+			player[1]->update(glm::vec3(speed,0,0));
 			player[1]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[1]->setRot(3.0f);
-			player[1]->update(glm::vec3(-0.02,0,0));
+			player[1]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[1]->getTirer()==false)
 	{
 		player[1]->setRot(-1.5f);
-			player[1]->update(glm::vec3(0.0,0,0.02));
+			player[1]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[1]->getTirer()==false)
 	{
 		player[1]->setRot(1.5f);
-			player[1]->update(glm::vec3(0.0,0,-0.02));
+			player[1]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[1]->getTirer()==false)
 	{
 			player[1]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[1]->getTirer()==false)
 	{
 			player[1]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[1]->getTirer()==false)
 	{
 			player[1]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[1]->getTirer()==false)
 	{
 			player[1]->setRot(2.25f);
 	}
 }
-void game::input3()
+void game::input3(float speed)
 {
 			if(getup())
 	{
 		
-			player[2]->update(glm::vec3(0.02,0,0));
+			player[2]->update(glm::vec3(speed,0,0));
 			player[2]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[2]->setRot(3.0f);
-			player[2]->update(glm::vec3(-0.02,0,0));
+			player[2]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[2]->getTirer()==false)
 	{
 		player[2]->setRot(-1.5f);
-			player[2]->update(glm::vec3(0.0,0,0.02));
+			player[2]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[2]->getTirer()==false)
 	{
 		player[2]->setRot(1.5f);
-			player[2]->update(glm::vec3(0.0,0,-0.02));
+			player[2]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[2]->getTirer()==false)
 	{
 			player[2]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[2]->getTirer()==false)
 	{
 			player[2]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[2]->getTirer()==false)
 	{
 			player[2]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[2]->getTirer()==false)
 	{
 			player[2]->setRot(2.25f);
 	}
 }
-void game::input4()
+void game::input4(float speed)
 {
 		if(getup())
 	{
 		
-			player[3]->update(glm::vec3(0.02,0,0));
+			player[3]->update(glm::vec3(speed,0,0));
 			player[3]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[3]->setRot(3.0f);
-			player[3]->update(glm::vec3(-0.02,0,0));
+			player[3]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[3]->getTirer()==false)
 	{
 		player[3]->setRot(-1.5f);
-			player[3]->update(glm::vec3(0.0,0,0.02));
+			player[3]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[3]->getTirer()==false)
 	{
 		player[3]->setRot(1.5f);
-			player[3]->update(glm::vec3(0.0,0,-0.02));
+			player[3]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[3]->getTirer()==false)
 	{
 			player[3]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[3]->getTirer()==false)
 	{
 			player[3]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[3]->getTirer()==false)
 	{
 			player[3]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[3]->getTirer()==false)
 	{
 			player[3]->setRot(2.25f);
 	}
 }
-void game::input5()
+void game::input5(float speed)
 {
 			if(getup())
 	{
 		
-			player[4]->update(glm::vec3(0.02,0,0));
+			player[4]->update(glm::vec3(speed,0,0));
 			player[4]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[4]->setRot(3.0f);
-			player[4]->update(glm::vec3(-0.02,0,0));
+			player[4]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[4]->getTirer()==false)
 	{
 		player[4]->setRot(-1.5f);
-			player[4]->update(glm::vec3(0.0,0,0.02));
+			player[4]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[4]->getTirer()==false)
 	{
 		player[4]->setRot(1.5f);
-			player[4]->update(glm::vec3(0.0,0,-0.02));
+			player[4]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[4]->getTirer()==false)
 	{
 			player[4]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[4]->getTirer()==false)
 	{
 			player[4]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[4]->getTirer()==false)
 	{
 			player[4]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[4]->getTirer()==false)
 	{
 			player[4]->setRot(2.25f);
 	}
 }
-void game::input6()
+void game::input6(float speed)
 {
 		if(getup())
 	{
 		
-			player[5]->update(glm::vec3(0.02,0,0));
+			player[5]->update(glm::vec3(speed,0,0));
 			player[5]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[5]->setRot(3.0f);
-			player[5]->update(glm::vec3(-0.02,0,0));
+			player[5]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[5]->getTirer()==false)
 	{
 		player[5]->setRot(-1.5f);
-			player[5]->update(glm::vec3(0.0,0,0.02));
+			player[5]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[5]->getTirer()==false)
 	{
 		player[5]->setRot(1.5f);
-			player[5]->update(glm::vec3(0.0,0,-0.02));
+			player[5]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[5]->getTirer()==false)
 	{
 			player[5]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[5]->getTirer()==false)
 	{
 			player[5]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[5]->getTirer()==false)
 	{
 			player[5]->setRot(2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[5]->getTirer()==false)
 	{
 			player[5]->setRot(-2.25f);
 	}
 }
-void game::input7()
+void game::input7(float speed)
 {
 		if(getup())
 	{
 		
-			player[6]->update(glm::vec3(0.02,0,0));
+			player[6]->update(glm::vec3(speed,0,0));
 			player[6]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[6]->setRot(3.0f);
-			player[6]->update(glm::vec3(-0.02,0,0));
+			player[6]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[6]->getTirer()==false)
 	{
 		player[6]->setRot(-1.5f);
-			player[6]->update(glm::vec3(0.0,0,0.02));
+			player[6]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[6]->getTirer()==false)
 	{
 		player[6]->setRot(1.5f);
-			player[6]->update(glm::vec3(0.0,0,-0.02));
+			player[6]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[6]->getTirer()==false)
 	{
 			player[6]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[6]->getTirer()==false)
 	{
 			player[6]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[6]->getTirer()==false)
 	{
 			player[6]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[6]->getTirer()==false)
 	{
 			player[6]->setRot(2.25f);
 	}
 }
-void game::input8()
+void game::input8(float speed)
 {
 		if(getup())
 	{
 		
-			player[7]->update(glm::vec3(0.02,0,0));
+			player[7]->update(glm::vec3(speed,0,0));
 			player[7]->setRot(0.0f);
 	}
 		if(getdown())
 	{
 			player[7]->setRot(3.0f);
-			player[7]->update(glm::vec3(-0.02,0,0));
+			player[7]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[7]->getTirer()==false)
 	{
 		player[7]->setRot(-1.5f);
-			player[7]->update(glm::vec3(0.0,0,0.02));
+			player[7]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[7]->getTirer()==false)
 	{
 		player[7]->setRot(1.5f);
-			player[7]->update(glm::vec3(0.0,0,-0.02));
+			player[7]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[7]->getTirer()==false)
 	{
 			player[7]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[7]->getTirer()==false)
 	{
 			player[7]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[7]->getTirer()==false)
 	{
 			player[7]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[7]->getTirer()==false)
 	{
 			player[7]->setRot(2.25f);
 	}
 }
-void game::input9()
+void game::input9(float speed)
 {
-		if(getup())
+		if(getup()&& player[8]->getTirer()==false)
 	{
 		
-			player[8]->update(glm::vec3(0.02,0,0));
+			player[8]->update(glm::vec3(speed,0,0));
 			player[8]->setRot(0.0f);
 	}
-		if(getdown())
+		if(getdown()&& player[8]->getTirer()==false)
 	{
 			player[8]->setRot(3.0f);
-			player[8]->update(glm::vec3(-0.02,0,0));
+			player[8]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[8]->getTirer()==false)
 	{
 		player[8]->setRot(-1.5f);
-			player[8]->update(glm::vec3(0.0,0,0.02));
+			player[8]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[8]->getTirer()==false)
 	{
 		player[8]->setRot(1.5f);
-			player[8]->update(glm::vec3(0.0,0,-0.02));
+			player[8]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[8]->getTirer()==false)
 	{
 			player[8]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[8]->getTirer()==false)
 	{
 			player[8]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[8]->getTirer()==false)
 	{
 			player[8]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[8]->getTirer()==false)
 	{
 			player[8]->setRot(2.25f);
 	}
 }
-void game::input10()
+void game::input10(float speed)
 {
-		if(getup())
+		if(getup()&& player[9]->getTirer()==false)
 	{
 		
-			player[9]->update(glm::vec3(0.02,0,0));
+			player[9]->update(glm::vec3(speed,0,0));
 			player[9]->setRot(0.0f);
 	}
-		if(getdown())
+		if(getdown()&& player[9]->getTirer()==false)
 	{
 			player[9]->setRot(3.0f);
-			player[9]->update(glm::vec3(-0.02,0,0));
+			player[9]->update(glm::vec3(-speed,0,0));
 	}
-	if(getright())
+	if(getright()&& player[9]->getTirer()==false)
 	{
 		player[9]->setRot(-1.5f);
-			player[9]->update(glm::vec3(0.0,0,0.02));
+			player[9]->update(glm::vec3(0.0,0,speed));
 	}
-	if(getleft())
+	if(getleft()&& player[9]->getTirer()==false)
 	{
 		player[9]->setRot(1.5f);
-			player[9]->update(glm::vec3(0.0,0,-0.02));
+			player[9]->update(glm::vec3(0.0,0,-speed));
 	}
-	if(getup() && getright())
+	if(getup() && getright()&& player[9]->getTirer()==false)
 	{
 			player[9]->setRot(-0.75f);
 	}
-		if(getup() && getleft())
+		if(getup() && getleft()&& player[9]->getTirer()==false)
 	{
 			player[9]->setRot(0.75f);
 	}
-		if(getdown() && getright())
+		if(getdown() && getright()&& player[9]->getTirer()==false)
 	{
 			player[9]->setRot(-2.25f);
 	}
-		if(getdown() && getleft())
+		if(getdown() && getleft()&& player[9]->getTirer()==false)
 	{
 			player[9]->setRot(2.25f);
 	}
@@ -2421,11 +2685,11 @@ void game::input10()
 
 void game::goal_()
 {
-	if(ball->getLocation().x>47 && ball->getLocation().z>-10 && ball->getLocation().z<10)
+	if(ball->getLocation().x>50 &&  ball->getLocation().x<50.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
 	{
 		scoreA+=1;
 	}
-		if(ball->getLocation().x<-47 && ball->getLocation().z>-10 && ball->getLocation().z<10)
+		if(ball->getLocation().x<-50 && ball->getLocation().x>-50.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
 	{
 		scoreB+=1;
 	}
@@ -2436,6 +2700,12 @@ void game::update()
 //printf("Allemagne:%d - France:%d\n",scoreA,scoreB);
 //printf("temps: %f\n",temps);
 //printf("mitemps: %d\n",mitemps);
+
+sky->update();
+
+for(int i=0;i<support.size();i++)
+ support[i]->update();
+
 if(temps>=205)
 {
 	mitemps+=1;
@@ -2449,6 +2719,41 @@ if(mitemps>=2)
 }
 	if(startgame<3)
 	{
+		if(temps>2)
+		{
+		
+locGuiTexture.y-=0.5f;
+
+if(locGuiTexture.y<20)
+locGuiTexture.y=20;
+}
+
+numberSupporters=500;
+ball->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+stade->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<membres_.size();i++)
+membres_[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<membres2_.size();i++)
+membres2_[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<membres3_.size();i++)
+membres3_[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<membres4_.size();i++)
+membres4_[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<membres5_.size();i++)
+membres5_[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<player.size();i++)
+player[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<playerAI.size();i++)
+playerAI[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<support.size();i++)
+support[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+decor->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+echafaudage->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+sky->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+water->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+for(int i=0;i<goal.size();i++)
+goal[i]->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));
+
 		temps+=0.01f;
 		 player[0]->movement(glm::vec3(0,10,0));
    player[1]->movement(glm::vec3(-10,10,10));
@@ -2474,8 +2779,34 @@ if(mitemps>=2)
 }
 
 
-if(startgame>3 && startgame<10 && temps>15)
+if(startgame>3 && startgame<10 && temps>5)
 {
+numberSupporters=110;	
+ball->cam.setLocation(glm::vec3(0,25,30));
+stade->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<membres_.size();i++)
+membres_[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<membres2_.size();i++)
+membres2_[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<membres3_.size();i++)
+membres3_[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<membres4_.size();i++)
+membres4_[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<membres5_.size();i++)
+membres5_[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<player.size();i++)
+player[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<playerAI.size();i++)
+playerAI[i]->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<support.size();i++)
+support[i]->cam.setLocation(glm::vec3(0,25,30));
+decor->cam.setLocation(glm::vec3(0,25,30));
+echafaudage->cam.setLocation(glm::vec3(0,25,30));
+sky->cam.setLocation(glm::vec3(0,25,30));
+water->cam.setLocation(glm::vec3(0,25,30));
+for(int i=0;i<goal.size();i++)
+goal[i]->cam.setLocation(glm::vec3(0,25,30));
+
 
 		temps+=0.01f;
 	if(goal[0]->movementGOAL(ball->getLocation()))
@@ -2486,6 +2817,7 @@ if(startgame>3 && startgame<10 && temps>15)
 	{
 		
 	}
+	
 	collisionGOAL();
 	collision();
 	collisionAI();
@@ -2495,8 +2827,17 @@ if(startgame>3 && startgame<10 && temps>15)
 	movement();
 	movementAI();
 	movementBall();
-	passer();
-//	passerAI();
+	passer(player[0]);
+	passer(player[1]);
+	passer(player[2]);
+	passer(player[3]);
+	passer(player[4]);
+	passer(player[5]);
+	passer(player[6]);
+	passer(player[7]);
+	passer(player[8]);
+	passer(player[9]);
+	passerAI();
 	passerGoal();
 
 			if(limitBalle())
@@ -2517,8 +2858,8 @@ ball->setSpeedBallGoal(0);
   player[8]->setLocation(glm::vec3(-40,5,-5));
   player[9]->setLocation(glm::vec3(-40,5,-10));
   
-    playerAI[0]->setLocation(glm::vec3(0,5,0));
- playerAI[1]->setLocation(glm::vec3(10,5,10));
+  playerAI[0]->setLocation(glm::vec3(0,5,0));
+  playerAI[1]->setLocation(glm::vec3(10,5,10));
   playerAI[2]->setLocation(glm::vec3(10,5,5));
   playerAI[3]->setLocation(glm::vec3(20,5,-20));
   playerAI[4]->setLocation(glm::vec3(20,5,-10));
@@ -2531,28 +2872,32 @@ ball->setSpeedBallGoal(0);
 	}
  	limitJoueur();
  	
-	p->update(ball,playerAI[0],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[1],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[2],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[3],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[4],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[5],-8,-40,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[6],-8,-40,10,-10,2,5,player,playerAI);
-	p->update(ball,playerAI[7],-8,-40,10,-10,2,5,player,playerAI);
-	p->update(ball,playerAI[8],-8,-40,10,-10,2,5,player,playerAI);
-	p->update(ball,playerAI[9],-8,-40,10,-10,0,5,player,playerAI);
+/*	p->update(ball,playerAI[0],90,0,50,-50,2,9,player,playerAI);
+	p->update(ball,playerAI[1],90,0,50,-10,2,9,player,playerAI);
+	p->update(ball,playerAI[2],90,0,50,-10,3,9,player,playerAI);
+	p->update(ball,playerAI[3],90,0,50,-10,4,9,player,playerAI);
+	p->update(ball,playerAI[4],90,0,50,-10,5,9,player,playerAI);
+	p->update(ball,playerAI[5],90,0,50,-10,6,9,player,playerAI);
+	p->update(ball,playerAI[6],90,0,50,-10,2,5,player,playerAI);
+	p->update(ball,playerAI[7],90,0,50,-10,2,5,player,playerAI);
+	p->update(ball,playerAI[8],90,0,50,-10,2,5,player,playerAI);
+	p->update(ball,playerAI[9],90,0,50,-10,0,5,player,playerAI);
+	*/
 	
 	
-	p->update(ball,playerAI[0],30,-7,10,-10,4,7,player,playerAI);
-	p->update(ball,playerAI[1],30,-7,10,-10,4,7,player,playerAI);
-	p->update(ball,playerAI[2],30,-7,10,-10,4,7,player,playerAI);
-	p->update(ball,playerAI[3],30,-7,10,-10,4,7,player,playerAI);
-	p->update(ball,playerAI[4],30,-7,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[5],30,-7,10,-10,6,9,player,playerAI);
-	p->update(ball,playerAI[6],30,-7,10,-10,1,3,player,playerAI);
-	p->update(ball,playerAI[7],30,-7,10,-10,1,3,player,playerAI);
-	p->update(ball,playerAI[8],30,-7,10,-10,1,3,player,playerAI);
-	p->update(ball,playerAI[9],30,-7,10,-10,1,3,player,playerAI);
+	
+	
+	p->update(ball,playerAI[0],80,-700,100,-150,4,9,player,playerAI);
+	p->update(ball,playerAI[1],80,-700,100,-150,6,9,player,playerAI);
+	p->update(ball,playerAI[2],80,-700,100,-150,3,9,player,playerAI);
+	p->update(ball,playerAI[3],80,-700,100,-150,5,9,player,playerAI);
+	p->update(ball,playerAI[4],80,-700,100,-150,7,9,player,playerAI);
+	p->update(ball,playerAI[5],80,-700,100,-150,1,3,player,playerAI);
+	p->update(ball,playerAI[6],80,-700,100,-150,1,3,player,playerAI);
+	p->update(ball,playerAI[7],80,-700,100,-150,1,3,player,playerAI);
+	p->update(ball,playerAI[8],80,-700,100,-150,1,3,player,playerAI);
+	p->update(ball,playerAI[9],80,-700,100,-150,1,3,player,playerAI);
+
 	
 }
 
@@ -2903,8 +3248,24 @@ membres4_[i]->draw(ball->getLocation());
 for(int i=0;i<membres5_.size();i++)
 membres5_[i]->draw(ball->getLocation());
 stade->show(ball->getLocation());
+echafaudage->show(ball->getLocation());
+decor->show(ball->getLocation());
 ball->show(ball->getLocation());
+sky->show(ball->getLocation());
+water->show(ball->getLocation());
 
+for(int i=0;i<numberSupporters;i++)
+	support[i]->draw(ball->getLocation());
+	
+if(startgame<3)
+{
+		
+guiTexture->draw(ball->getLocation(),glm::vec3(-18,62,0),glm::vec3(2.5f,0.25f,1.5f),0);
+guiTexture2->draw(ball->getLocation(),glm::vec3(-38,62,0),glm::vec3(2.5f,0.25f,1.5f),0);
+guiTexture3->draw(ball->getLocation(),glm::vec3(-30,58,0),glm::vec3(2.75f,0.45f,1.5f),0);
+guiTexture4->draw(ball->getLocation(),glm::vec3(0,locGuiTexture.y,20),glm::vec3(6.5f,3.5f,10.5f),-0.9f);
+guiTexture5->draw(ball->getLocation(),glm::vec3(40,locGuiTexture.y,50),glm::vec3(6.5f,3.5f,10.5f),-0.9f);
+}
 
 drawLimit(membres_[22],glm::vec3(-28,4,10));
 drawLimit(membres_[22],glm::vec3(-28,4,-10));
@@ -2936,14 +3297,17 @@ drawLimit(membres_[22],glm::vec3(22,4,-10));
 
 
 		char text[256];
-		sprintf(text,"Allemagne %d - France %d",scoreA,scoreB);
-		printText2D(text, 10, 500, 20);
+		sprintf(text,"VISIT %d - Local %d",scoreA,scoreB);
+		printText2D(text, 10, 550, 15);
 		char text2[256];
-		sprintf(text2,"temps: %.2f",temps);
-		printText2D(text2, 10, 450, 20);
+		sprintf(text2,"%.2f",temps);
+		printText2D(text2, 90, 510, 20);
 		char text3[256];
 		sprintf(text3,"mitemps: %.2f",mitemps);
-		printText2D(text3, 10, 400, 20);
+		//printText2D(text3, 10, 450, 15);
+		char text4[256];
+		sprintf(text4,"footlegend+");
+		printText2D(text4, 550, 560, 22);
 
 	//	cleanupText2D();
 		
@@ -2957,20 +3321,29 @@ void game::gestionSpecial(int key, int x, int y)
 	switch(key)
 	{
 		case GLUT_KEY_UP:
+			
+			if(controls)
 			setup(true);
+		
 			glutPostRedisplay();
 		
 			break;
 			case GLUT_KEY_DOWN:
+		if(controls)
 				setdown(true);
+			
 					glutPostRedisplay();
 				break;
 					case GLUT_KEY_LEFT:
+			if(controls)
 					setleft(true);
+				
 					glutPostRedisplay();
 					break;
 					case GLUT_KEY_RIGHT:
+				if(controls)
 						setright(true);
+					
 						glutPostRedisplay();
 						break;
 				
@@ -3038,7 +3411,7 @@ void game::normalKeys(unsigned char key, int x, int y)
 				case 'v':
 				if(menu==2)
 				{
-				
+	
 	  					for(int i=0;i<player.size();i++)
 			if(player[i]->gethastheball()&& limitBalle()==false)
 	  		setespace(true);

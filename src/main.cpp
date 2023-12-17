@@ -8,11 +8,11 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #define GLEW_STATIC
-#include <C:\glew-1.13.0\include\GL\glew.h>
-#include <C:\glm\glm\glm.hpp>
-#include <C:\glm\glm\glm.hpp>
-#include <C:\glm\glm\gtc\matrix_transform.hpp>
-#include"C:\freeglut\include\GL\freeglut.h"
+#include "C:\library\glew-1.13.0\include\GL\glew.h"
+#include <C:\library\glm\glm\glm.hpp>
+#include <C:\library\glm\glm\glm.hpp>
+#include <C:\library\glm\glm\gtc\matrix_transform.hpp>
+#include"C:\library\freeglut\include\GL\freeglut.h"
 #include"game.h"
 
 using namespace glm;

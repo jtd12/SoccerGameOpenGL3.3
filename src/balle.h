@@ -28,7 +28,7 @@ class balle
 	balle(float x, float y, float z,float rot);
 	~balle();
 		void loadContent();
-	void update(glm::vec3 translation);
+	void update();
 	void show(glm::vec3 addp);
 	void setLocation(glm::vec3 position);
 	glm::vec3 getLocation();
@@ -67,6 +67,7 @@ void setSpeedBallGoal(float s);
    float getRot();
     void setRot(float r);
 void setdece(float dec);
+camera cam;
 	private:
 			bool centrer,centreravant,centrercotedroit,centrercotegauche,centrerarriere,centrercotearrieredroit,centrercotearrieregauche;
 		GLuint vertexbuffer;
@@ -88,6 +89,6 @@ GLuint programID;
 		float dec;
 		float rot_;
 float speed,speed_ball_joueur,speed_ball_joueurAI,speed2_ball_joueurAI,speed_ball_goal;
-camera cam;
+
 };
 #endif
