@@ -36,7 +36,7 @@ int main( int argc, char *argv[ ], char *envp[ ] )
 	glutInitWindowSize(LARGEUR,HAUTEUR);
 	glutInitWindowPosition(100,100); 
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH | GLUT_STENCIL);
-	windowsName=glutCreateWindow("car game OpenGL 3.3");
+	windowsName=glutCreateWindow("Soccer Game Engine 3.3");
 
 	// Initialize GLEW
 	glewExperimental = true; // Needed for core profile

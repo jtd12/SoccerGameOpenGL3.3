@@ -14,6 +14,7 @@ using namespace std;
 #include <glm/glm.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 #include "common/shader.hpp"
 #include "common/texture.hpp"
 #include "common/objloader.hpp"
@@ -26,8 +27,8 @@ class stadium
 	stadium(glm::vec3 position);
 	stadium(float x, float y, float z);
 	~stadium();
-		void loadContent();
-	void update(glm::vec3 translation);
+		void loadContent(const char* nameFile,const char* nameTexture);
+	void update();
 	void show(glm::mat4 ProjectionMatrix,glm::mat4 ViewMatrix,glm::mat4 ModelMatrix);
 	private:
 		 std::vector<glm::vec3> vertices;
@@ -46,6 +47,7 @@ GLuint programID;
 		GLuint uvbuffer;
 		GLuint vertexUVID;
 GLuint vertexPosition_modelspaceID ;
+float rot;
 			// Read our .obj file
 
 			 

@@ -21,7 +21,7 @@ void membres::load(const char * filename,const char * filenameTexture)
 {
 
 
-programID  = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
+programID  = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
 
 
 	// Get a handle for our "MVP" uniform
