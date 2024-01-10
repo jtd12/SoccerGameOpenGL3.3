@@ -410,7 +410,7 @@ void game::collision()
 		{
 	p->setSpeed(0.0f);
 		p->setTir(false);
-			ball->setLocation(glm::vec3(player[i]->getLocation().x+0.5f,ball->getLocation().y,player[i]->getLocation().z));
+			ball->setLocation(glm::vec3(player[i]->getLocation().x+1.8f,ball->getLocation().y,player[i]->getLocation().z));
 		}
 			if(player[i]->gethastheball() && getup())
 		{
@@ -449,7 +449,7 @@ void game::collisionGOAL()
 	
 //	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
 
-		if(d<2 )
+		if(d<1.7f )
 		{
 			goal[0]->sethastheball(true);
 			
@@ -468,7 +468,7 @@ void game::collisionGOAL()
 	
 //	d = sqrt(((p1x - p2x) * (p1x – p2x)) + ((p1y – p2y) * (p1y – p2y)) + ((p1z – p2z) * (p1z – p2z)));
 
-		if(d2<2)
+		if(d2<1.7f)
 		{
 			goal[1]->sethastheball(true);
 			
@@ -577,6 +577,9 @@ void game::passer(joueur* player)
 				}
 			
 			
+			if(ball->getLocation().x<20)
+			{
+			
 						
 					if(player->getTirer() && player->getRot()==-1.5f)
 					{
@@ -633,30 +636,86 @@ void game::passer(joueur* player)
 	  						 
 					 ball->setLocationIncremente(glm::vec3(speed,0,0));
 							
+			}
+			}
+			else
+			{
+						
+					if(player->getTirer() && player->getRot()==-1.5f)
+					{
+					
+					speed=2.9f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(0,0,speed));
+							
+				}
 				
+						
+				else	if(player->getTirer() &&  player->getRot()==1.5f)
+					{
+					
+					speed=2.9f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(0,0,-speed));
+							
+				}
 				
+					else	if(player->getTirer() &&  player->getRot()==3.0f)
+					{
+					
+					speed=2.9f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(-speed,0,0));
+							
+				}
 				
+					else	if(player->getTirer() &&  player->getRot()==0.0f)
+					{
+					
+					speed=2.9f;
+			
+			
+					
+	  			
+	  				
+	  						 
+					 ball->setLocationIncremente(glm::vec3(speed,0,0));
+							
+			}	
 			}
 				
-				
 			
-
-
 				
-			
+	
 			
 	}
+	
 	void game::passerGoal()
 	{
 	
 		
 				 if(goal[0]->gethastheball()==true)
 				 {
-				 		ball->setLocationIncremente(glm::vec3(20.0f,0,7.5));
+				 		ball->setLocationIncremente(glm::vec3(12.0f,0,2.5));
 				 }
 			 if(goal[1]->gethastheball()==true)
 				 {
-				 		ball->setLocationIncremente(glm::vec3(-20.0f,0,7.5));
+				 		ball->setLocationIncremente(glm::vec3(-12.0f,0,2.5));
 				 }
 		
 
@@ -694,7 +753,7 @@ void game::passer(joueur* player)
 					{
 						playerAI[i]->setTirer(false);
 					}
-				for(int i=0;i<playerAI.size();i++)		
+				for(int i=0;i<playerAI.size();i++)
 					if(playerAI[i]->getTirer() && rand>25)
 					{
 					
@@ -1424,12 +1483,12 @@ void game::movementAI()
 
 bool game::limitBalle()
 {
-	if(ball->getLocation().x>55)
+	if(ball->getLocation().x>54)
 	{
 	return true;
 	
 }
-else if(ball->getLocation().x<-55)
+else if(ball->getLocation().x<-54)
 {
 		return true;
 }
@@ -1452,161 +1511,161 @@ return false;
 void game::limitJoueur()
 {
 	
- if(player[0]->getLocation().x>49)
+ if(player[0]->getLocation().x>54)
 {
 	player[0]->setLocation(glm::vec3(0,10,0));
 }
- if(player[1]->getLocation().x>49)
+ if(player[1]->getLocation().x>54)
 {
 	player[1]->setLocation(glm::vec3(0,10,0));
 }
- if(player[2]->getLocation().x>49)
+ if(player[2]->getLocation().x>54)
 {
 	player[2]->setLocation(glm::vec3(0,10,0));
 }
- if(player[3]->getLocation().x>49)
+ if(player[3]->getLocation().x>54)
 {
 	player[3]->setLocation(glm::vec3(0,10,0));
 }
- if(player[4]->getLocation().x>49)
+ if(player[4]->getLocation().x>54)
 {
 	player[4]->setLocation(glm::vec3(0,10,0));
 }
- if(player[5]->getLocation().x>49)
+ if(player[5]->getLocation().x>54)
 {
 	player[5]->setLocation(glm::vec3(0,10,0));
 }
- if(player[6]->getLocation().x>49)
+ if(player[6]->getLocation().x>54)
 {
 	player[6]->setLocation(glm::vec3(0,10,0));
 }
- if(player[7]->getLocation().x>49)
+ if(player[7]->getLocation().x>54)
 {
 	player[7]->setLocation(glm::vec3(0,10,0));
 }
- if(player[8]->getLocation().x>49)
+ if(player[8]->getLocation().x>54)
 {
 	player[8]->setLocation(glm::vec3(0,10,0));
 }
- if(player[9]->getLocation().x>49)
+ if(player[9]->getLocation().x>54)
 {
 	player[9]->setLocation(glm::vec3(0,10,0));
 }
- if(player[0]->getLocation().x<-49)
+ if(player[0]->getLocation().x<-54)
 {
 	player[0]->setLocation(glm::vec3(0,10,0));
 }
- if(player[1]->getLocation().x<-49)
+ if(player[1]->getLocation().x<-54)
 {
 	player[1]->setLocation(glm::vec3(0,10,0));
 }
- if(player[2]->getLocation().x<-49)
+ if(player[2]->getLocation().x<-54)
 {
 	player[2]->setLocation(glm::vec3(0,10,0));
 }
- if(player[3]->getLocation().x<-49)
+ if(player[3]->getLocation().x<-54)
 {
 	player[3]->setLocation(glm::vec3(0,10,0));
 }
- if(player[4]->getLocation().x<-49)
+ if(player[4]->getLocation().x<-54)
 {
 	player[4]->setLocation(glm::vec3(0,10,0));
 }
- if(player[5]->getLocation().x<-49)
+ if(player[5]->getLocation().x<-54)
 {
 	player[5]->setLocation(glm::vec3(0,10,0));
 }
- if(player[6]->getLocation().x<-49)
+ if(player[6]->getLocation().x<-54)
 {
 	player[7]->setLocation(glm::vec3(0,10,0));
 }
- if(player[8]->getLocation().x<-49)
+ if(player[8]->getLocation().x<-54)
 {
 	player[8]->setLocation(glm::vec3(0,10,0));
 }
- if(player[9]->getLocation().x<-49)
+ if(player[9]->getLocation().x<-54)
 {
 	player[9]->setLocation(glm::vec3(0,10,0));
 }
 
- if(playerAI[0]->getLocation().x>49)
+ if(playerAI[0]->getLocation().x>54)
 {
 	playerAI[0]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[1]->getLocation().x>49)
+ if(playerAI[1]->getLocation().x>54)
 {
 	playerAI[1]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[2]->getLocation().x>49)
+ if(playerAI[2]->getLocation().x>54)
 {
 	playerAI[2]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[3]->getLocation().x>49)
+ if(playerAI[3]->getLocation().x>54)
 {
 	playerAI[3]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[4]->getLocation().x>49)
+ if(playerAI[4]->getLocation().x>54)
 {
 	playerAI[4]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[5]->getLocation().x>49)
+ if(playerAI[5]->getLocation().x>54)
 {
 	playerAI[5]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[6]->getLocation().x>49)
+ if(playerAI[6]->getLocation().x>54)
 {
 	playerAI[6]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[7]->getLocation().x>49)
+ if(playerAI[7]->getLocation().x>54)
 {
 	playerAI[7]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[8]->getLocation().x>49)
+ if(playerAI[8]->getLocation().x>54)
 {
 	playerAI[8]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[9]->getLocation().x>49)
+ if(playerAI[9]->getLocation().x>54)
 {
 	playerAI[9]->setLocation(glm::vec3(0,10,0));
 }
 
- if(playerAI[0]->getLocation().x<-49)
+ if(playerAI[0]->getLocation().x<-54)
 {
 	playerAI[0]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[1]->getLocation().x<-49)
+ if(playerAI[1]->getLocation().x<-54)
 {
 	playerAI[1]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[2]->getLocation().x<-49)
+ if(playerAI[2]->getLocation().x<-54)
 {
 	playerAI[2]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[3]->getLocation().x<-49)
+ if(playerAI[3]->getLocation().x<-54)
 {
 	playerAI[3]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[4]->getLocation().x<-49)
+ if(playerAI[4]->getLocation().x<-54)
 {
 	playerAI[4]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[5]->getLocation().x<-49)
+ if(playerAI[5]->getLocation().x<-54)
 {
 	playerAI[5]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[6]->getLocation().x<-49)
+ if(playerAI[6]->getLocation().x<-54)
 {
 	playerAI[6]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[7]->getLocation().x<-49)
+ if(playerAI[7]->getLocation().x<-54)
 {
 	playerAI[7]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[8]->getLocation().x<-49)
+ if(playerAI[8]->getLocation().x<-54)
 {
 	playerAI[8]->setLocation(glm::vec3(0,10,0));
 }
- if(playerAI[9]->getLocation().x<-49)
+ if(playerAI[9]->getLocation().x<-54)
 {
 	playerAI[9]->setLocation(glm::vec3(0,10,0));
 }
@@ -2685,13 +2744,61 @@ void game::input10(float speed)
 
 void game::goal_()
 {
-	if(ball->getLocation().x>50 &&  ball->getLocation().x<50.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
+	if(ball->getLocation().x>50 &&  ball->getLocation().x<54.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
 	{
 		scoreA+=1;
+		ball->setLocation(glm::vec3(0,ball->getLocation().y,0));
+	
+		
+		  player[0]->setLocation(glm::vec3(0,5,0));
+		  player[1]->setLocation(glm::vec3(-10,5,2));
+		  player[2]->setLocation(glm::vec3(-15,5,5));
+		  player[3]->setLocation(glm::vec3(-20,5,-10));
+		  player[4]->setLocation(glm::vec3(-20,5,-10));
+		  player[5]->setLocation(glm::vec3(-30,5,5));
+		  player[6]->setLocation(glm::vec3(-30,5,-10));
+		  player[7]->setLocation(glm::vec3(-40,5,0));
+		  player[8]->setLocation(glm::vec3(-40,5,-5));
+		  player[9]->setLocation(glm::vec3(-40,5,-10));
+		  
+		  playerAI[0]->setLocation(glm::vec3(0,5,0));
+		  playerAI[1]->setLocation(glm::vec3(10,5,10));
+		  playerAI[2]->setLocation(glm::vec3(10,5,5));
+		  playerAI[3]->setLocation(glm::vec3(20,5,-20));
+		  playerAI[4]->setLocation(glm::vec3(20,5,-10));
+		  playerAI[5]->setLocation(glm::vec3(30,5,10));
+		  playerAI[6]->setLocation(glm::vec3(30,5,-10));
+		  playerAI[7]->setLocation(glm::vec3(40,5,0));
+		  playerAI[8]->setLocation(glm::vec3(40,5,-5));
+		  playerAI[9]->setLocation(glm::vec3(40,5,-10));
 	}
-		if(ball->getLocation().x<-50 && ball->getLocation().x>-50.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
+		if(ball->getLocation().x<-50 && ball->getLocation().x>-51.5f && ball->getLocation().z>-8 && ball->getLocation().z<8)
 	{
+		ball->setLocation(glm::vec3(0,ball->getLocation().y,0));
 		scoreB+=1;
+		
+		
+	  player[0]->setLocation(glm::vec3(0,5,0));
+	  player[1]->setLocation(glm::vec3(-10,5,2));
+	  player[2]->setLocation(glm::vec3(-15,5,5));
+	  player[3]->setLocation(glm::vec3(-20,5,-10));
+	  player[4]->setLocation(glm::vec3(-20,5,-10));
+	  player[5]->setLocation(glm::vec3(-30,5,5));
+	  player[6]->setLocation(glm::vec3(-30,5,-10));
+	  player[7]->setLocation(glm::vec3(-40,5,0));
+	  player[8]->setLocation(glm::vec3(-40,5,-5));
+	  player[9]->setLocation(glm::vec3(-40,5,-10));
+	  
+	  playerAI[0]->setLocation(glm::vec3(0,5,0));
+	  playerAI[1]->setLocation(glm::vec3(10,5,10));
+	  playerAI[2]->setLocation(glm::vec3(10,5,5));
+	  playerAI[3]->setLocation(glm::vec3(20,5,-20));
+	  playerAI[4]->setLocation(glm::vec3(20,5,-10));
+	  playerAI[5]->setLocation(glm::vec3(30,5,10));
+	  playerAI[6]->setLocation(glm::vec3(30,5,-10));
+	  playerAI[7]->setLocation(glm::vec3(40,5,0));
+	  playerAI[8]->setLocation(glm::vec3(40,5,-5));
+	  playerAI[9]->setLocation(glm::vec3(40,5,-10));
 	}
 }
 void game::update()
@@ -2706,6 +2813,18 @@ sky->update();
 for(int i=0;i<support.size();i++)
  support[i]->update();
 
+if(mitemps<2)
+{
+	if(temps>2 && temps<4)
+		{
+		
+locGuiTexture.y-=0.5f;
+
+if(locGuiTexture.y<20)
+locGuiTexture.y=20;
+}
+}
+
 if(temps>=205)
 {
 	mitemps+=1;
@@ -2717,16 +2836,9 @@ if(mitemps>=2)
 	mitemps=0;
 	ball->setLocation(glm::vec3(0,2.3f,0));
 }
-	if(startgame<3)
+	if(startgame<3 )
 	{
-		if(temps>2)
-		{
-		
-locGuiTexture.y-=0.5f;
-
-if(locGuiTexture.y<20)
-locGuiTexture.y=20;
-}
+	
 
 numberSupporters=500;
 ball->cam.setLocationInc(glm::vec3(0.09f,0.0f,0));

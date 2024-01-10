@@ -59,7 +59,7 @@ bool joueur::movement(glm::vec3 playerLoc)
 		bool joueur::movementGOAL(glm::vec3 playerLoc)
 		{
 		
-		position_.z=playerLoc.z;
+		position_.z=playerLoc.z*0.1f;
 		if(position_.z>8)
 		 position_.z=8;
 		if(position_.z<-8)
