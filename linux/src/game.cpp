@@ -2721,11 +2721,15 @@ void game::drawLimit(membres* membres,glm::vec3 pos)
 }
 
 
-void game::update()
+void game::update(GLFWwindow* window)
 {
 cam->setLocation(ball->getLocation()+glm::vec3(0,0,0),ball->getRot());
 
 sky->update();
+inputDown(window);
+inputUp(window);
+inputNormal(window);
+inputNormalUp(window);
 
 for(int i=0;i<support.size();i++)
  support[i]->update();
@@ -2871,7 +2875,7 @@ ball->setSpeedBallGoal(0);
 void game::draw()
 {
 
-update();
+//update();
 
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 glClearColor(0.6,0.6,0.6,1.0);
@@ -3269,10 +3273,97 @@ drawLimit(membres_[22],glm::vec3(22,4,-10));
 
 		
 glFlush();
-glutSwapBuffers();
-glutPostRedisplay();
+
 
 }
+
+void game::inputDown(GLFWwindow* window)
+{
+if (glfwGetKey( window,GLFW_KEY_UP ) == GLFW_PRESS){
+    setup(true);
+}
+// Move backward
+if (glfwGetKey( window,GLFW_KEY_DOWN ) == GLFW_PRESS){
+    setdown(true);
+}
+// Strafe right
+if (glfwGetKey( window,GLFW_KEY_RIGHT ) == GLFW_PRESS){
+   setright(true);
+}
+// Strafe left
+if (glfwGetKey( window,GLFW_KEY_LEFT ) == GLFW_PRESS){
+   setleft(true);
+  }
+  }
+  
+void game::inputUp(GLFWwindow* window)
+{ 
+   if (glfwGetKey(window, GLFW_KEY_UP ) == GLFW_RELEASE){
+    setup(false);
+}
+// Move backward
+if (glfwGetKey( window,GLFW_KEY_DOWN ) == GLFW_RELEASE){
+    setdown(false);
+}
+// Strafe right
+if (glfwGetKey( window,GLFW_KEY_RIGHT ) == GLFW_RELEASE){
+   setright(false);
+}
+// Strafe left
+if (glfwGetKey( window,GLFW_KEY_LEFT ) == GLFW_RELEASE){
+   setleft(false);
+   
+}
+
+}
+
+void game::inputNormal(GLFWwindow* window)
+{
+if (glfwGetKey( window,GLFW_KEY_C) == GLFW_PRESS){
+
+    menu++;
+	  			
+				  if(menu>2)
+				  {
+				  	menu=2;
+					  }	
+					  
+					  if(menu==2)
+					  {
+					  	startgame++;
+					  
+					  if(startgame>15)
+					  {
+					  	startgame=0;
+					  }
+				}
+  }
+  
+  if (glfwGetKey( window,GLFW_KEY_V) == GLFW_PRESS){
+
+  	if(menu==2)
+				{
+				
+	  					for(int i=0;i<player.size();i++)
+			if(player[i]->gethastheball()&& limitBalle()==false)
+	  		setespace(true);
+	  	}
+	  	}
+  }
+  
+  void game::inputNormalUp(GLFWwindow* window){
+    if (glfwGetKey( window,GLFW_KEY_V) == GLFW_RELEASE){
+
+  if(menu==2)
+	  	{
+		  
+			for(int i=0;i<player.size();i++)
+				 if(player[i]->gethastheball()==false)
+	  		setespace(false);
+	  	}
+	  	}
+  }
+/*
 void game::gestionSpecial(int key, int x, int y)
 {
 	switch(key)
@@ -3385,7 +3476,7 @@ void game::normalKeysUp(unsigned char key, int x, int y)
 	  		break;
 	  }
 }
-
+*/
 bool game::getup()
 {
 	return up;
@@ -3426,3 +3517,4 @@ void game::setespace(bool e)
   {
   	return espace;
   }
+  

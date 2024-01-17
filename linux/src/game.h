@@ -1,5 +1,11 @@
 #ifndef DEF_GAME_H
 #define DEF_GAME_H
+
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
 #include"stadium.h"
 #include"balle.h"
 #include"joueur.h"
@@ -18,7 +24,7 @@ class game
 		void initGL();
 		void draw();
 		void loadSupporters();
-		void update();
+		void update(GLFWwindow* window);
 		void movementBall();
 		void movement();
 		void movementAI();
@@ -59,6 +65,10 @@ class game
 		void input8(float speed);
 		void input9(float speed);
 		void input10(float speed);
+		void inputDown(GLFWwindow* window);
+		void inputUp(GLFWwindow* window);
+		void inputNormal(GLFWwindow* window);
+		void inputNormalUp(GLFWwindow* window);
 
 		private:
 

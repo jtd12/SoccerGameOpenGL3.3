@@ -109,14 +109,14 @@ void camera::tourner(int x, int y)
 {
 		if(mi)
 	{
-		glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+		//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 		orienter(MidX-x, MidY-y);
-		glutWarpPointer(MidX,MidY);
+		//glutWarpPointer(MidX,MidY);
 	}
 	else
 	{
 	
-		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+		//glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	}
 }
 
@@ -141,25 +141,7 @@ void camera::inputSpecial(char key,int x, int y)
 {
 	switch(key)
 	{
-		case GLUT_KEY_UP:
-		 up=true;
-	
-		 glutPostRedisplay();
-		 break;
-		 case GLUT_KEY_DOWN:
-
-		 down=true;	
-		 glutPostRedisplay();
-		 break;
-		 case GLUT_KEY_RIGHT:
-	
-		 right=true;
-		 glutPostRedisplay();
-		 break;
-		 case GLUT_KEY_LEFT:
-		 	
-		left=true;
-		glutPostRedisplay();
+		
 	
 	}
 }
@@ -167,22 +149,7 @@ void camera::inputSpecial(char key,int x, int y)
 {
 	switch(key)
 	{
-		case GLUT_KEY_UP:
-		 up=false;
-		 glutPostRedisplay();
-		 break;
-		 case GLUT_KEY_DOWN:
-		 down=false;
-		 glutPostRedisplay();	
-		 break;
-		 case GLUT_KEY_RIGHT:
-		 right=false;
-		 glutPostRedisplay();
-		 break;
-		 case GLUT_KEY_LEFT:
-		left=false;
-		glutPostRedisplay();
-		break;
+		
 	
 	}
 }
