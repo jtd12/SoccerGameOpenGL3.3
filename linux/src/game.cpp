@@ -3268,7 +3268,7 @@ drawLimit(membres_[22],glm::vec3(22,4,-10));
 		printText2D(text2, 20, 150, 20);
 		char text3[256];
 		sprintf(text3,"mitemps: %.2f",mitemps);
-		printText2D("je suis beau!", 20, 100, 30);
+	
 
 
 		
