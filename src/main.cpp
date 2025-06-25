@@ -13,7 +13,7 @@ using namespace std;
 #include <C:\library\glm\glm\glm.hpp>
 #include <C:\library\glm\glm\gtc\matrix_transform.hpp>
 #include"C:\library\freeglut\include\GL\freeglut.h"
-#include"game.h"
+#include"setup/game.h"
 
 using namespace glm;
 game g;

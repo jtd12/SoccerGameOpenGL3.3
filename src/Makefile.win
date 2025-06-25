@@ -4,13 +4,13 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o supporter.o guiTexture.o
-LINKOBJ  = main.o common/objloader.o common/quaternion_utils.o common/shader.o common/tangentspace.o common/text2D.o common/texture.o common/vboindexer.o stadium.o joueur.o balle.o cameragestion.o game.o membres.o passsystem.o supporter.o guiTexture.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -lopengl32 C:/library/freeglut/lib/freeglut.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -m32
+OBJ      = main.o common/objloader.o common/shader.o common/vboindexer.o textures/guiTexture.o setup/game.o together/together.o entities/decor/stadium.o passLogic/passsystem.o entities/balle/balle.o entities/camera/cameragestion.o entities/player/joueur.o entities/player/membres.o entities/supporters/supporter.o GUI/text2D.o textures/texture.o sound/sound.o
+LINKOBJ  = main.o common/objloader.o common/shader.o common/vboindexer.o textures/guiTexture.o setup/game.o together/together.o entities/decor/stadium.o passLogic/passsystem.o entities/balle/balle.o entities/camera/cameragestion.o entities/player/joueur.o entities/player/membres.o entities/supporters/supporter.o GUI/text2D.o textures/texture.o sound/sound.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib -lopengl32 C:/library/freeglut/lib/freeglut.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32s.lib C:/library/glew-1.13.0/lib/Release/Win32/glew32.lib "C:/library/OpenAL 1.1 SDK/libs/Win32/OpenAL32.lib" -m32
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = Projet1.exe
-CXXFLAGS = $(CXXINCS) -m32
+CXXFLAGS = $(CXXINCS) -m32 -std=c++11
 CFLAGS   = $(INCS) -m32
 RM       = rm.exe -f
 
@@ -30,47 +30,47 @@ main.o: main.cpp
 common/objloader.o: common/objloader.cpp
 	$(CPP) -c common/objloader.cpp -o common/objloader.o $(CXXFLAGS)
 
-common/quaternion_utils.o: common/quaternion_utils.cpp
-	$(CPP) -c common/quaternion_utils.cpp -o common/quaternion_utils.o $(CXXFLAGS)
-
 common/shader.o: common/shader.cpp
 	$(CPP) -c common/shader.cpp -o common/shader.o $(CXXFLAGS)
-
-common/tangentspace.o: common/tangentspace.cpp
-	$(CPP) -c common/tangentspace.cpp -o common/tangentspace.o $(CXXFLAGS)
-
-common/text2D.o: common/text2D.cpp
-	$(CPP) -c common/text2D.cpp -o common/text2D.o $(CXXFLAGS)
-
-common/texture.o: common/texture.cpp
-	$(CPP) -c common/texture.cpp -o common/texture.o $(CXXFLAGS)
 
 common/vboindexer.o: common/vboindexer.cpp
 	$(CPP) -c common/vboindexer.cpp -o common/vboindexer.o $(CXXFLAGS)
 
-stadium.o: stadium.cpp
-	$(CPP) -c stadium.cpp -o stadium.o $(CXXFLAGS)
+textures/guiTexture.o: textures/guiTexture.cpp
+	$(CPP) -c textures/guiTexture.cpp -o textures/guiTexture.o $(CXXFLAGS)
 
-joueur.o: joueur.cpp
-	$(CPP) -c joueur.cpp -o joueur.o $(CXXFLAGS)
+setup/game.o: setup/game.cpp
+	$(CPP) -c setup/game.cpp -o setup/game.o $(CXXFLAGS)
 
-balle.o: balle.cpp
-	$(CPP) -c balle.cpp -o balle.o $(CXXFLAGS)
+together/together.o: together/together.cpp
+	$(CPP) -c together/together.cpp -o together/together.o $(CXXFLAGS)
 
-cameragestion.o: cameragestion.cpp
-	$(CPP) -c cameragestion.cpp -o cameragestion.o $(CXXFLAGS)
+entities/decor/stadium.o: entities/decor/stadium.cpp
+	$(CPP) -c entities/decor/stadium.cpp -o entities/decor/stadium.o $(CXXFLAGS)
 
-game.o: game.cpp
-	$(CPP) -c game.cpp -o game.o $(CXXFLAGS)
+passLogic/passsystem.o: passLogic/passsystem.cpp
+	$(CPP) -c passLogic/passsystem.cpp -o passLogic/passsystem.o $(CXXFLAGS)
 
-membres.o: membres.cpp
-	$(CPP) -c membres.cpp -o membres.o $(CXXFLAGS)
+entities/balle/balle.o: entities/balle/balle.cpp
+	$(CPP) -c entities/balle/balle.cpp -o entities/balle/balle.o $(CXXFLAGS)
 
-passsystem.o: passsystem.cpp
-	$(CPP) -c passsystem.cpp -o passsystem.o $(CXXFLAGS)
+entities/camera/cameragestion.o: entities/camera/cameragestion.cpp
+	$(CPP) -c entities/camera/cameragestion.cpp -o entities/camera/cameragestion.o $(CXXFLAGS)
 
-supporter.o: supporter.cpp
-	$(CPP) -c supporter.cpp -o supporter.o $(CXXFLAGS)
+entities/player/joueur.o: entities/player/joueur.cpp
+	$(CPP) -c entities/player/joueur.cpp -o entities/player/joueur.o $(CXXFLAGS)
 
-guiTexture.o: guiTexture.cpp
-	$(CPP) -c guiTexture.cpp -o guiTexture.o $(CXXFLAGS)
+entities/player/membres.o: entities/player/membres.cpp
+	$(CPP) -c entities/player/membres.cpp -o entities/player/membres.o $(CXXFLAGS)
+
+entities/supporters/supporter.o: entities/supporters/supporter.cpp
+	$(CPP) -c entities/supporters/supporter.cpp -o entities/supporters/supporter.o $(CXXFLAGS)
+
+GUI/text2D.o: GUI/text2D.cpp
+	$(CPP) -c GUI/text2D.cpp -o GUI/text2D.o $(CXXFLAGS)
+
+textures/texture.o: textures/texture.cpp
+	$(CPP) -c textures/texture.cpp -o textures/texture.o $(CXXFLAGS)
+
+sound/sound.o: sound/sound.cpp
+	$(CPP) -c sound/sound.cpp -o sound/sound.o $(CXXFLAGS)

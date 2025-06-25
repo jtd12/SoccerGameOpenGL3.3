@@ -10,7 +10,7 @@ using namespace std;
 #include <string.h>
 
 #define GLEW_STATIC
-#include <C:\glew-1.13.0\include\GL\glew.h>
+#include <C:\library\glew-1.13.0\include\GL\glew.h>
 
 #include "shader.hpp"
 
